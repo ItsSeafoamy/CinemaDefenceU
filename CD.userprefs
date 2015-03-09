@@ -1,0 +1,18 @@
+﻿<Properties>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\CinemaDefence\src\Level.cs">
+    <Files>
+      <File FileName="Assets\Scripts\CinemaDefence\src\Level.cs" Line="140" Column="27" />
+      <File FileName="Assets\Scripts\CinemaDefence\src\KillZone.cs" Line="2" Column="22" />
+      <File FileName="Assets\Scripts\CinemaDefence\src\Enemies\Enemy.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\CinemaDefence\src\Towers\HoloTower.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\CinemaDefence\src\Towers\Tower.cs" Line="27" Column="71" />
+      <File FileName="Assets\Scripts\CinemaDefence\src\Game.cs" Line="27" Column="31" />
+      <File FileName="Assets\Scripts\CinemaDefence\src\Enemies\Baby.cs" Line="22" Column="2" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>
