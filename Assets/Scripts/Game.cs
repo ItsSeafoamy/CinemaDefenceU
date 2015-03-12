@@ -31,16 +31,20 @@ public class Game {
 	public static int enemiesKilled = 0; //Total enemies defeated
 	public static int fails = 0; //Fail counter
 	
+	public static string nextLevel;
+	
 	//Array of all tower types. This means we can easily add or remove towers without having to change too much code
 	public static System.Type[] towers = new System.Type[]{
-		typeof(PopcornGun)
+		typeof(PopcornGun),
+		typeof(HotdogCannon),
+		typeof(IceCreamGun)
 	};
 	
 	/**
 	*	Resets money and towers. Used when starting a new game
 	*/
 	public static void Reset(){
-		money = 0;
+		money = 100;
 		
 		foreach (System.Type t in towers){
 			if (t == typeof(PopcornGun)){

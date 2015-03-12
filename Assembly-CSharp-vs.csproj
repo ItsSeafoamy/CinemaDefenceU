@@ -48,12 +48,19 @@
   <ItemGroup>
      <Compile Include="Assets\Scripts\Effect.cs" />
      <Compile Include="Assets\Scripts\Enemies\Baby.cs" />
+     <Compile Include="Assets\Scripts\Enemies\BabyLauncher.cs" />
+     <Compile Include="Assets\Scripts\Enemies\CrazyMum.cs" />
      <Compile Include="Assets\Scripts\Enemies\Enemy.cs" />
      <Compile Include="Assets\Scripts\Enemies\GrannyRabbit.cs" />
+     <Compile Include="Assets\Scripts\Enemies\SkeletonEnemy.cs" />
      <Compile Include="Assets\Scripts\Enemies\TallGuy.cs" />
+     <Compile Include="Assets\Scripts\Enemies\Wave.cs" />
      <Compile Include="Assets\Scripts\Game.cs" />
      <Compile Include="Assets\Scripts\KillZone.cs" />
      <Compile Include="Assets\Scripts\Level.cs" />
+     <Compile Include="Assets\Scripts\Menus\Shop.cs" />
+     <Compile Include="Assets\Scripts\Notification.cs" />
+     <Compile Include="Assets\Scripts\NotificationList.cs" />
      <Compile Include="Assets\Scripts\Slowness.cs" />
      <Compile Include="Assets\Scripts\Towers\Bullet.cs" />
      <Compile Include="Assets\Scripts\Towers\HoloTower.cs" />
@@ -61,7 +68,7 @@
      <Compile Include="Assets\Scripts\Towers\IceCreamGun.cs" />
      <Compile Include="Assets\Scripts\Towers\PopcornGun.cs" />
      <Compile Include="Assets\Scripts\Towers\Tower.cs" />
-     <Compile Include="Assets\Scripts\Wave.cs" />
+     <Compile Include="Assets\Scripts\Towers\TowerSet.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>

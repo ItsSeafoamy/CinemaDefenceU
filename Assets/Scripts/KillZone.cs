@@ -29,10 +29,16 @@ public class KillZone : MonoBehaviour {
 				//TODO: Lose the game
 				Debug.Log("You lost :(");
 			}
+						
+			float refunds = enemy.health * 5;
 			
-			float refunds = enemy.health * 10;
+			if (Game.money >= 0 && Game.money - refunds < 0){
+				NotificationList.AddNotification(new Notification("You are now in debt!\nIf you do not get above 0G\nbefore the movie ends,\nYou will be shut down!", 10));
+			}
+			    
+			    
 			Game.money -= (int) refunds;
-			Debug.Log("You lost " + refunds + " from refunds!");
+			NotificationList.AddNotification(new Notification("You lost " + (int) refunds + " from refunds!", 2));
 			
 			foreach (Tower tower in enemy.watchers){
 				tower.tracked.Remove(enemy);
