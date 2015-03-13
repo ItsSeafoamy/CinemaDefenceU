@@ -32,7 +32,7 @@ public class SkeletonEnemy : Enemy {
 		//Code for stuff that happens when enemy is damaged
 	}
 	
-	protected override void Kill (){ //Delete this method if nothing special happens when enemy is killed
+	public override void Kill (){ //Delete this method if nothing special happens when enemy is killed
 		base.Kill (); //Delete this line to cancel the death
 		
 		//Code for stuff that happens when this enemy is killed

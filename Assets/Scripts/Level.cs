@@ -101,7 +101,7 @@ public class Level : MonoBehaviour {
 					int adult = Random.Range(1, 2);
 					int gained2 = (adultPrice * adult) + (childPrice * children);
 					Game.money += gained2;
-					NotificationList.AddNotification(new Notification(adult + " adult ticket" + (adult == 2 ? "s" : "") + " and " + children + " child ticket" + (children == 2 ? "s" : "") + " sold for " + gained2 + "G!", 2));
+					NotificationList.AddNotification(new Notification(adult + " adult ticket" + (adult == 2 ? "s" : "") + "\nand " + children + " child ticket" + (children == 2 ? "s" : "") + " sold for " + gained2 + "G!", 2));
 					break;
 				case 3:
 					int students = Random.Range(1,2);
@@ -210,13 +210,20 @@ public class Level : MonoBehaviour {
 			
 			holoTower = (HoloTower) Instantiate(holoTowers[2]);
 			isPlacing = true;
+		} else if (Input.GetKeyDown(KeyCode.Alpha4)){
+			if (holoTower != null){
+				Destroy(holoTower.gameObject);
+			}
+			
+			holoTower = (HoloTower) Instantiate(holoTowers[3]);
+			isPlacing = true;
 		} else if (Input.GetKeyDown(KeyCode.Escape)){
 			if (holoTower != null){
 				Destroy(holoTower.gameObject);
 			}
 			
 			isPlacing = false; //No longer placing towers
-		}
+		} 
 		
 		if (isPlacing && !waitingForNextLevel){
 			Vector3 point3 = Input.mousePosition; //Gets the position of the mouse on the screen

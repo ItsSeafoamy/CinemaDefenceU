@@ -38,7 +38,7 @@ public abstract class Enemy : MonoBehaviour {
 		
 		Move();
 		if(health <= 0){
-			Destroy (gameObject);
+			Kill();
 		}
 	}
 
@@ -85,7 +85,7 @@ public abstract class Enemy : MonoBehaviour {
 	*	Or to spawn the kids when the crazy mum is killed.
 	*	Unless for some reason the death is to be cancelled, this base method should be called from overriding methods
 	*/
-	protected virtual void Kill(){
+	public virtual void Kill(){
 		foreach (Tower t in watchers){
 			t.tracked.Remove(this); //Stop towers from tracking this enemy
 			t.SelectTarget(); //And update the towers' targets

@@ -46,7 +46,9 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\Scripts\Effect.cs" />
+     <Compile Include="Assets\Scripts\Effects\DamageOverTime.cs" />
+     <Compile Include="Assets\Scripts\Effects\Effect.cs" />
+     <Compile Include="Assets\Scripts\Effects\Slowness.cs" />
      <Compile Include="Assets\Scripts\Enemies\Baby.cs" />
      <Compile Include="Assets\Scripts\Enemies\BabyLauncher.cs" />
      <Compile Include="Assets\Scripts\Enemies\CrazyMum.cs" />
@@ -61,8 +63,8 @@
      <Compile Include="Assets\Scripts\Menus\Shop.cs" />
      <Compile Include="Assets\Scripts\Notification.cs" />
      <Compile Include="Assets\Scripts\NotificationList.cs" />
-     <Compile Include="Assets\Scripts\Slowness.cs" />
      <Compile Include="Assets\Scripts\Towers\Bullet.cs" />
+     <Compile Include="Assets\Scripts\Towers\Coffee.cs" />
      <Compile Include="Assets\Scripts\Towers\HoloTower.cs" />
      <Compile Include="Assets\Scripts\Towers\HotdogCannon.cs" />
      <Compile Include="Assets\Scripts\Towers\IceCreamGun.cs" />
