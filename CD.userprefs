@@ -1,10 +1,10 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Effects\DamageOverTime.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Enemies\Wave.cs">
     <Files>
-      <File FileName="Assets\Scripts\Effects\DamageOverTime.cs" Line="26" Column="28" />
-      <File FileName="Assets\Scripts\Effects\Slowness.cs" Line="24" Column="2" />
-      <File FileName="Assets\Scripts\Enemies\Enemy.cs" Line="87" Column="4" />
+      <File FileName="Assets\Scripts\Enemies\Enemy.cs" Line="102" Column="23" />
+      <File FileName="Assets\Scripts\Level.cs" Line="59" Column="2" />
+      <File FileName="Assets\Scripts\Enemies\Wave.cs" Line="24" Column="25" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

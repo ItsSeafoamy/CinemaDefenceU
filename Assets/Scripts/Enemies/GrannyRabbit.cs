@@ -18,7 +18,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class GrannyRabbit : Enemy {
+public class GrannyRabbit : Boss {
 
 	public float waitTime; //How long granny rabbit waits between hops
 	float cooldown; //How long til the next hop

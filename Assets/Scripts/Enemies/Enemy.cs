@@ -21,24 +21,24 @@ using System.Collections.Generic;
 
 public abstract class Enemy : MonoBehaviour {
 
-	public float health = 5;
-	public float movementSpeed = 10;
+	public float health = 5; //The health of this enemy
+	public float movementSpeed = 10; //How fast this enemy moves
 	
 	[System.NonSerialized]
-	public List<Tower> watchers = new List<Tower>();
+	public List<Tower> watchers = new List<Tower>(); //The towers that are currently tracking this enemy
 	
 	[System.NonSerialized]
-	public List<Effect> effects = new List<Effect>();
+	public List<Effect> effects = new List<Effect>(); //A list of effects applied to this tower.
 		
 	// Update is called once per frame
 	void Update (){
 		foreach (Effect e in effects){
-			e.OnUpdate(this);
+			e.OnUpdate(this); //Update any effects
 		}
 		
-		Move();
+		Move(); //Move this enemy
 		if(health <= 0){
-			Kill();
+			Kill(); //Kill if health <= 0
 		}
 	}
 
@@ -47,18 +47,18 @@ public abstract class Enemy : MonoBehaviour {
 			Bullet b = hit.gameObject.GetComponent<Bullet>();
 			
 			foreach (Effect e in b.effects){
-				AddEffect(e);
+				AddEffect(e); //Add any effects the bullet was carrying
 			}
 			
-			Damage(b);
+			Damage(b); //Damage this enemy
 			
-			Destroy(b.gameObject);
+			Destroy(b.gameObject); //Destroy the bullet
 			
 			if (health <= 0){
-				Kill();
+				Kill(); //Kill if health <= 0
 			}
 		} else {
-			Physics2D.IgnoreCollision(hit.collider, GetComponent<Collider2D>()); 
+			Physics2D.IgnoreCollision(hit.collider, GetComponent<Collider2D>()); //Ignore any collisions from objects that aren't bullets
 		}
 	}
 	

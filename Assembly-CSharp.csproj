@@ -51,6 +51,7 @@
      <Compile Include="Assets\Scripts\Effects\Slowness.cs" />
      <Compile Include="Assets\Scripts\Enemies\Baby.cs" />
      <Compile Include="Assets\Scripts\Enemies\BabyLauncher.cs" />
+     <Compile Include="Assets\Scripts\Enemies\Boss.cs" />
      <Compile Include="Assets\Scripts\Enemies\CrazyMum.cs" />
      <Compile Include="Assets\Scripts\Enemies\Enemy.cs" />
      <Compile Include="Assets\Scripts\Enemies\GrannyRabbit.cs" />

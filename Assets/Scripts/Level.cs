@@ -48,16 +48,16 @@ public class Level : MonoBehaviour {
 	bool gameOver = false;
 	
 	public int childPrice, studentPrice, adultPrice;
-	public float popularity;
-	float nextPurchase = 3f;
-	public int victoryBonus;
+	public float popularity; //How 'popular' the cinema is. Determines how often someone makes a purchase
+	float nextPurchase = 3f; //Time until next purchase
+	public int victoryBonus; //How much money we earn for beating the level
 	
 	[System.NonSerialized]
 	public float happiness = 100f; //Your life
 	float displayedHappiness;
 	float displayedMoney;
 	
-	public string nextLevel;
+	public string nextLevel; //The level to go to after the shop
 	
 	public Texture2D health;
 	public Texture2D money;
@@ -65,6 +65,13 @@ public class Level : MonoBehaviour {
 	IEnumerator SpawnObject(int index, float seconds){
 		//make sure they're not all spawning on top of each oter
 		yield return new WaitForSeconds(seconds);
+		
+		if (waves[wave][index] is Boss){ //If the enemy is a bos
+			Boss boss = (Boss) waves[wave][index];
+			
+			GetComponent<AudioSource>().PlayOneShot(boss.introClip); //Play that bosses intro sound before we spawn it
+			yield return new WaitForSeconds(boss.introClip.length); //Wait until it shuts up before spawning
+		} 
 		
 		if (waves[wave][index] != null && !gameOver){
 			System.Random rand = new System.Random();
