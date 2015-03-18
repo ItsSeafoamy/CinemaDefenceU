@@ -33,17 +33,15 @@ public class IceCreamGun : Tower {
 		bullet.shooter = this;
 		Vector3 dir = (target.transform.position - transform.position).normalized;
 		bullet.direction = dir;
-		if (target.name == ("Tall Guy")); //checks if target is tall guy
-		    {
-				tracked.Remove(target);//stops targeting
-				SelectTarget();//gets new target
-			}
-		else;//if not a tallguy effect stands
-			{
-				bullet.damage = baseDamage;
-				bullet.AddEffect(new Slowness(0.5f));
-				tracked.Remove(target);
-				SelectTarget();
-			}
+		
+		if (target is TallGuy) { //checks if target is tall guy
+			tracked.Remove(target); //stops targeting
+			SelectTarget(); //gets new target
+		} else { //if not a tallguy effect stands
+			bullet.damage = baseDamage;
+			bullet.AddEffect(new Slowness(0.5f));
+			tracked.Remove(target);
+			SelectTarget();
+		}
 	}
 }
