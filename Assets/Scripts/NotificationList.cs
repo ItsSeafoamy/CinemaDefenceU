@@ -52,8 +52,6 @@ public class NotificationList : MonoBehaviour {
 			if (noti.y - 4 > Screen.height - (j)*diff) noti.y -= 4;
 			else if (noti.y  + 4 < Screen.height - (j)*diff) noti.y += 4;
 			else noti.y = Screen.height - (j)*diff;
-			
-			Debug.Log(noti.y + " : " + i*diff);
 		}
 	}
 	

@@ -21,6 +21,8 @@ using System.Collections;
 public class Shop : MonoBehaviour {
 	
 	public Texture2D background;
+	public Texture2D upgradeArrow;
+	public Texture2D backArrow;
 	
 	public TowerSet[] towers;
 	
@@ -35,7 +37,7 @@ public class Shop : MonoBehaviour {
 			Tower next = level == towerset.towers.Length ? null : towerset[level];
 			
 			if (next != null){
-				GUI.Button(new Rect(128 + (128*i), Screen.height - 128, 64, 64), next.GetComponent<SpriteRenderer>().sprite.texture);
+				GUI.Button(new Rect(32 + (169*i), Screen.height - 169, 64, 64), next.GetComponent<SpriteRenderer>().sprite.texture);
 			}
 		}
 	}
