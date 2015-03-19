@@ -1,10 +1,13 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Level.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Towers\SodaGun.cs">
     <Files>
       <File FileName="Assets\Scripts\Enemies\Boss.cs" Line="22" Column="2" />
-      <File FileName="Assets\Scripts\Enemies\Enemy.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Level.cs" Line="261" Column="29" />
+      <File FileName="Assets\Scripts\Enemies\Enemy.cs" Line="10" Column="65" />
+      <File FileName="Assets\Scripts\Level.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Game.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Towers\SodaGun.cs" Line="37" Column="26" />
+      <File FileName="Assets\Scripts\Towers\Coffee.cs" Line="42" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

@@ -229,6 +229,13 @@ public class Level : MonoBehaviour {
 			
 			holoTower = (HoloTower) Instantiate(holoTowers[3]);
 			isPlacing = true;
+		} else if (Input.GetKeyDown(KeyCode.Alpha5)){
+			if (holoTower != null){
+				Destroy(holoTower.gameObject);
+			}
+			
+			holoTower = (HoloTower) Instantiate(holoTowers[4]);
+			isPlacing = true;
 		} else if (Input.GetKeyDown(KeyCode.Escape)){
 			if (holoTower != null){
 				Destroy(holoTower.gameObject);

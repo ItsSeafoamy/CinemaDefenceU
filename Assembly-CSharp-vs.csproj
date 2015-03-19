@@ -49,6 +49,7 @@
      <Compile Include="Assets\Scripts\Effects\DamageOverTime.cs" />
      <Compile Include="Assets\Scripts\Effects\Effect.cs" />
      <Compile Include="Assets\Scripts\Effects\Slowness.cs" />
+     <Compile Include="Assets\Scripts\Effects\Splash.cs" />
      <Compile Include="Assets\Scripts\Enemies\Baby.cs" />
      <Compile Include="Assets\Scripts\Enemies\Boss.cs" />
      <Compile Include="Assets\Scripts\Enemies\CrazyMum.cs" />
@@ -71,6 +72,7 @@
      <Compile Include="Assets\Scripts\Towers\HotdogCannon.cs" />
      <Compile Include="Assets\Scripts\Towers\IceCreamGun.cs" />
      <Compile Include="Assets\Scripts\Towers\PopcornGun.cs" />
+     <Compile Include="Assets\Scripts\Towers\SodaGun.cs" />
      <Compile Include="Assets\Scripts\Towers\Tower.cs" />
      <Compile Include="Assets\Scripts\Towers\TowerSet.cs" />
  <Reference Include="UnityEngine.UI">
