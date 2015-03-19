@@ -64,6 +64,8 @@ public class Level : MonoBehaviour {
 	
 	Tower selectedTower;
 	
+	public Texture2D circle;
+	
 	IEnumerator SpawnObject(int index, float seconds){
 		//make sure they're not all spawning on top of each oter
 		yield return new WaitForSeconds(seconds);
@@ -333,7 +335,15 @@ public class Level : MonoBehaviour {
 		GUI.Label(new Rect(Screen.width - 200 + health.width/2 + 8, 32 + health.height + 8, 200, 20), displayedMoney + "G");
 		
 		if (selectedTower != null){
-			if (GUI.Button(new Rect(Screen.width - 200, 144, 169, 24), "Sell for " + selectedTower.sell + " G (Right-Click)")){
+			/*Vector3 pos = selectedTower.transform.position;
+			float range = selectedTower.GetComponent<CircleCollider2D>().radius * 100;
+			float posX = (pos.x * 100f) + (Screen.width/2);
+			float posY = (pos.y * 100f) + (Screen.height/2);
+			
+			GUI.DrawTexture(new Rect(posX - range, posY - range, range*2, range*2), circle);
+			Debug.Log(posX - range);*/
+			
+			if (GUI.Button(new Rect(Screen.width - 200, 144, 169, 24), "Sell for " + selectedTower.sell + "G (Right-Click)")){
 				Game.money += selectedTower.sell;
 				NotificationList.AddNotification(new Notification("Sold tower for " + selectedTower.sell + "G", 2));
 				placedTowers.Remove(selectedTower);
