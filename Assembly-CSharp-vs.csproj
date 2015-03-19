@@ -64,6 +64,7 @@
      <Compile Include="Assets\Scripts\KillZone.cs" />
      <Compile Include="Assets\Scripts\Level.cs" />
      <Compile Include="Assets\Scripts\Menus\Shop.cs" />
+     <Compile Include="Assets\Scripts\Music.cs" />
      <Compile Include="Assets\Scripts\Notification.cs" />
      <Compile Include="Assets\Scripts\NotificationList.cs" />
      <Compile Include="Assets\Scripts\Towers\Bullet.cs" />

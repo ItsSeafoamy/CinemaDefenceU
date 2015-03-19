@@ -66,6 +66,8 @@ public class Level : MonoBehaviour {
 	
 	public Texture2D circle;
 	
+	public AudioClip bgm;
+	
 	IEnumerator SpawnObject(int index, float seconds){
 		//make sure they're not all spawning on top of each oter
 		yield return new WaitForSeconds(seconds);
@@ -91,6 +93,8 @@ public class Level : MonoBehaviour {
 	
 	void Start(){
 		instance = this;
+		
+		Music.Change(bgm);
 	}
 	
 	void Update(){
@@ -194,7 +198,7 @@ public class Level : MonoBehaviour {
 		
 		if (waitingForNextLevel && Input.GetKeyDown(KeyCode.Return)){
 			Game.nextLevel = nextLevel;
-			Application.LoadLevel("Lobby");
+			Application.LoadLevel("Shop");
 		}
 		
 		if (gameOver && Input.GetKeyDown(KeyCode.Return)){
