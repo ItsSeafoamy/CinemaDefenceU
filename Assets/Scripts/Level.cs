@@ -69,8 +69,10 @@ public class Level : MonoBehaviour {
 		if (waves[wave][index] is Boss){ //If the enemy is a bos
 			Boss boss = (Boss) waves[wave][index];
 			
-			GetComponent<AudioSource>().PlayOneShot(boss.introClip); //Play that bosses intro sound before we spawn it
-			yield return new WaitForSeconds(boss.introClip.length); //Wait until it shuts up before spawning
+			AudioClip clip = boss.introClip[Random.Range(0, boss.introClip.Length - 1)];
+			
+			GetComponent<AudioSource>().PlayOneShot(clip); //Play that bosses intro sound before we spawn it
+			yield return new WaitForSeconds(clip.length); //Wait until it shuts up before spawning
 		} 
 		
 		if (waves[wave][index] != null && !gameOver){
@@ -149,6 +151,7 @@ public class Level : MonoBehaviour {
 						wave++;
 						enemyNumber = 0;
 						waiting = true;
+						NotificationList.AddNotification(new Notification("Wave Cleared\nPress ENTER to continue\nto the next wave", 5));
 					} else {
 						if (Game.money < 0){
 							NotificationList.AddNotification(new Notification("You did not make enough money\n and have went bankrupt", 10));

@@ -20,6 +20,6 @@ using System.Collections;
 
 public abstract class Boss : Enemy {
 	
-	public AudioClip introClip;
+	public AudioClip[] introClip;
 	
 }

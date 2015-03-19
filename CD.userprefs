@@ -1,8 +1,13 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Menus\Shop.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Enemies\KidLauncher.cs">
     <Files>
-      <File FileName="Assets\Scripts\Menus\Shop.cs" Line="40" Column="66" />
+      <File FileName="Assets\Scripts\Towers\IceCreamGun.cs" Line="37" Column="13" />
+      <File FileName="Assets\Scripts\Enemies\TallGuy.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Enemies\Kid.cs" Line="21" Column="27" />
+      <File FileName="Assets\Scripts\Enemies\CrazyMum.cs" Line="24" Column="2" />
+      <File FileName="Assets\Scripts\Enemies\KidLauncher.cs" Line="20" Column="1" />
+      <File FileName="Assets\Scripts\Enemies\GrannyRabbit.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
