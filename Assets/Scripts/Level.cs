@@ -62,6 +62,8 @@ public class Level : MonoBehaviour {
 	public Texture2D health;
 	public Texture2D money;
 	
+	Tower selectedTower;
+	
 	IEnumerator SpawnObject(int index, float seconds){
 		//make sure they're not all spawning on top of each oter
 		yield return new WaitForSeconds(seconds);
@@ -235,7 +237,7 @@ public class Level : MonoBehaviour {
 			isPlacing = false; //No longer placing towers
 		} 
 		
-		if (isPlacing && !waitingForNextLevel){
+		if (isPlacing && !waitingForNextLevel && !gameOver){
 			Vector3 point3 = Input.mousePosition; //Gets the position of the mouse on the screen
 			Vector2 point = new Vector2(point3.x - (Screen.width / 2f), point3.y - (Screen.height / 2f)); //Convert to a 2D point with the origin in the center of the screen
 			point /= scale; 
@@ -256,10 +258,11 @@ public class Level : MonoBehaviour {
 						AudioClip playSound = holoTower.placeSounds[Random.Range(0, holoTower.placeSounds.Length - 1)];
 						GetComponent<AudioSource>().PlayOneShot(playSound);
 					} else {
-						Game.money += tower.sell;
-						NotificationList.AddNotification(new Notification("Sold tower for " + tower.sell + "G", 2));
-						placedTowers.Remove(tower);
-						Destroy(tower.gameObject);
+						selectedTower = tower;
+						//Game.money += tower.sell;
+						//NotificationList.AddNotification(new Notification("Sold tower for " + tower.sell + "G", 2));
+						//placedTowers.Remove(tower);
+						//Destroy(tower.gameObject);
 					}
 				}
 				
@@ -277,7 +280,18 @@ public class Level : MonoBehaviour {
 					holoTower.GetComponent<SpriteRenderer>().sprite = holoTower.invalid; //Change the sprite to the "invalid" sprite
 				//}
 			}
-		} 
+		} else if (!waitingForNextLevel && !gameOver){
+			if (Input.GetButtonDown("Fire1")){
+				Vector3 point3 = Input.mousePosition; //Gets the position of the mouse on the screen
+				Vector2 point = new Vector2(point3.x - (Screen.width / 2f), point3.y - (Screen.height / 2f)); //Convert to a 2D point with the origin in the center of the screen
+				point /= scale; 
+				point.x = Mathf.FloorToInt(point.x) + 0.5f;
+				point.y = Mathf.FloorToInt(point.y) + 0.5f;
+			
+				Vector3 pos = new Vector3((point.x * scale) / 100f, (point.y * scale) / 100f);
+				selectedTower = GetTower(pos);
+			}
+		}
 		
 		if ((int) displayedHappiness < (int) happiness) displayedHappiness++;
 		else if ((int) displayedHappiness > (int) happiness) displayedHappiness--;
@@ -303,12 +317,22 @@ public class Level : MonoBehaviour {
 	}
 	
 	void OnGUI(){
-		GUI.Box(new Rect(Screen.width - 200 - 16, 16, 200, Screen.height - 32), "");
+		GUI.Box(new Rect(Screen.width - 216, 16, 200, Screen.height - 32), "");
 		
 		GUI.DrawTexture(new Rect(Screen.width - 200, 32, health.width / 2, health.height / 2), health);
 		GUI.DrawTexture(new Rect(Screen.width - 200, 32 + health.height + 8, money.width / 2, money.height), money);
 		
 		GUI.Label(new Rect(Screen.width - 200 + health.width/2 + 8, 32, 200, 20), (int)displayedHappiness + "");
 		GUI.Label(new Rect(Screen.width - 200 + health.width/2 + 8, 32 + health.height + 8, 200, 20), displayedMoney + "G");
+		
+		if (selectedTower != null){
+			if (GUI.Button(new Rect(Screen.width - 200, 144, 169, 24), "Sell for " + selectedTower.sell + " G (Right-Click)")){
+				Game.money += selectedTower.sell;
+				NotificationList.AddNotification(new Notification("Sold tower for " + selectedTower.sell + "G", 2));
+				placedTowers.Remove(selectedTower);
+				Destroy(selectedTower.gameObject);
+				selectedTower = null;
+			}
+		}
 	}
 }
