@@ -22,6 +22,8 @@ using System.Collections.Generic;
 public abstract class Enemy : MonoBehaviour {
 
 	public float health = 5; //The health of this enemy
+	float maxHealth;
+	float displayedHealth;
 	public float movementSpeed = 10; //How fast this enemy moves
 	
 	[System.NonSerialized]
@@ -29,6 +31,11 @@ public abstract class Enemy : MonoBehaviour {
 	
 	[System.NonSerialized]
 	public List<Effect> effects = new List<Effect>(); //A list of effects applied to this tower.
+	
+	void Start(){
+		maxHealth = health;
+		displayedHealth = health;
+	}
 		
 	// Update is called once per frame
 	void Update (){
@@ -37,6 +44,13 @@ public abstract class Enemy : MonoBehaviour {
 		}
 		
 		Move(); //Move this enemy
+		
+		if (displayedHealth > health + 0.5f) displayedHealth -= 0.5f;
+		else if (displayedHealth < health - 0.5f) displayedHealth += 0.5f;
+		else displayedHealth = health;
+		
+		Transform healthBar = transform.FindChild("Health Bar");
+		healthBar.localScale = new Vector3(20f / maxHealth * displayedHealth, 4, 1);
 		if(health <= 0){
 			Kill(); //Kill if health <= 0
 		}
