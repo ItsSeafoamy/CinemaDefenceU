@@ -18,6 +18,7 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 
 public class Level : MonoBehaviour {
 
@@ -260,13 +261,15 @@ public class Level : MonoBehaviour {
 			holoTower.transform.position = new Vector3((point.x * scale) / 100f, (point.y * scale) / 100f); //Move the holo tower to the nearest snap-point to the mouse
 			
 			if (point.y >= minY && point.y <= maxY && allowedLanes.Contains(Mathf.FloorToInt(point.x)) && holoTower.toSpawn.buy <= Game.money){ 
-				if (Input.GetButtonDown("Fire1")){ //When the mouse button is pressed
+				if (Input.GetButtonUp("Fire1")){ //When the mouse button is pressed
 					Tower tower = GetTower(holoTower.transform.position);
 					
 					if (tower == null){
 						Tower t = (Tower) Instantiate(holoTower.toSpawn, holoTower.transform.position, holoTower.transform.rotation); //Spawn the tower
 						placedTowers.Add(t);
 						Game.money -= t.buy;
+						
+						selectedTower = t;
 						
 						AudioClip playSound = holoTower.placeSounds[Random.Range(0, holoTower.placeSounds.Length - 1)];
 						GetComponent<AudioSource>().PlayOneShot(playSound);
@@ -280,21 +283,18 @@ public class Level : MonoBehaviour {
 				}
 				
 				holoTower.GetComponent<SpriteRenderer>().sprite = holoTower.valid; //Change the sprite to the "valid" sprite to show the player they can place the tower here
-			} else {
-				/*if (Input.GetButtonDown("Fire1")){ //When the mouse button is pressed
-					Tower tower = GetTower(holoTower.transform.position);
-					if (tower != null){
-						Game.money += tower.sell;
-						NotificationList.AddNotification(new Notification("Sold tower for " + tower.sell + "G", 2));
-						placedTowers.Remove(tower);
-						Destroy(tower.gameObject);
-					}*/
-				
-					holoTower.GetComponent<SpriteRenderer>().sprite = holoTower.invalid; //Change the sprite to the "invalid" sprite
-				//}
+			} else {				
+				holoTower.GetComponent<SpriteRenderer>().sprite = holoTower.invalid; //Change the sprite to the "invalid" sprite
+					
+				if (Input.GetButtonUp("Fire1")){
+					Vector3 pos = new Vector3((point.x * scale) / 100f, (point.y * scale) / 100f);
+					if (GetTower(pos) != null){
+						selectedTower = GetTower(pos);
+					}
+				}
 			}
 		} else if (!waitingForNextLevel && !gameOver){
-			if (Input.GetButtonDown("Fire1")){
+			if (Input.GetButtonUp("Fire1")){
 				Vector3 point3 = Input.mousePosition; //Gets the position of the mouse on the screen
 				Vector2 point = new Vector2(point3.x - (Screen.width / 2f), point3.y - (Screen.height / 2f)); //Convert to a 2D point with the origin in the center of the screen
 				point /= scale; 
@@ -354,6 +354,8 @@ public class Level : MonoBehaviour {
 				Destroy(selectedTower.gameObject);
 				selectedTower = null;
 			}
+			
+			selectedTower.targetMode = GUI.SelectionGrid(new Rect(Screen.width - 200, 144 + 48, 169, 24*5), selectedTower.targetMode, new string[]{"First Spotted", "Furthest", "Last", "Strongest", "Weakest"}, 1, EditorStyles.radioButton);
 		}
 	}
 }

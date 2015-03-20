@@ -39,7 +39,7 @@ public abstract class Tower : MonoBehaviour {
 	
 	public int buy, sell; //The price to buy (for placing) and sell this tower
 	
-	protected int targetMode; //Controls what enemies this target should prioritise over
+	public int targetMode; //Controls what enemies this target should prioritise over
 	protected const int FIRST_SPOTTED = 0; //Prioritises based on the order the enemies entered the trigger zone
 	protected const int FURTHEST = 1; //Prioritises based on how far ahead the enemies are
 	protected const int LAST = 2; //Reversed order of FURTHEST
