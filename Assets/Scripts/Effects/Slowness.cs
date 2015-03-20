@@ -20,7 +20,7 @@ using System.Collections;
 
 public class Slowness : Effect {
 	
-	float speedModifier;
+	public float speedModifier;
 	
 	public Slowness(float speedModifier){
 		this.speedModifier = speedModifier;

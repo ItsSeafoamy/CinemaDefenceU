@@ -22,6 +22,18 @@ public class Baby : Enemy {
 	
 	protected override void Damage(Bullet bullet){
 		health -= bullet.damage;
-		movementSpeed = (6-health)/2.0f;
+	}
+	
+	protected override void Move() {
+		float modifier = 1;
+		
+		foreach (Effect e in effects){
+			if (e is Slowness){
+				modifier = ((Slowness) e).speedModifier;
+			}
+		}
+		movementSpeed = ((6-health)/2.0f) * modifier;
+		
+		base.Move();
 	}
 }
