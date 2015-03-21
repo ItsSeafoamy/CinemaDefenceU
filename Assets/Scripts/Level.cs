@@ -214,6 +214,8 @@ public class Level : MonoBehaviour {
 			}
 			
 			holoTower = (HoloTower) Instantiate(holoTowers[0]); //Create the new holotower
+			holoTower.transform.localScale = new Vector3(scale / 64f, scale / 64f, scale / 64f);
+			
 			isPlacing = true; //We are now placing a tower
 		} else if (Input.GetKeyDown(KeyCode.Alpha2)){
 			if (holoTower != null){
@@ -221,6 +223,8 @@ public class Level : MonoBehaviour {
 			}
 			
 			holoTower = (HoloTower) Instantiate(holoTowers[1]);
+			holoTower.transform.localScale = new Vector3(scale / 64f, scale / 64f, scale / 64f);
+			
 			isPlacing = true;
 		} else if (Input.GetKeyDown(KeyCode.Alpha3)){
 			if (holoTower != null){
@@ -228,6 +232,8 @@ public class Level : MonoBehaviour {
 			}
 			
 			holoTower = (HoloTower) Instantiate(holoTowers[2]);
+			holoTower.transform.localScale = new Vector3(scale / 64f, scale / 64f, scale / 64f);
+			
 			isPlacing = true;
 		} else if (Input.GetKeyDown(KeyCode.Alpha4)){
 			if (holoTower != null){
@@ -235,6 +241,8 @@ public class Level : MonoBehaviour {
 			}
 			
 			holoTower = (HoloTower) Instantiate(holoTowers[3]);
+			holoTower.transform.localScale = new Vector3(scale / 64f, scale / 64f, scale / 64f);
+			
 			isPlacing = true;
 		} else if (Input.GetKeyDown(KeyCode.Alpha5)){
 			if (holoTower != null){
@@ -242,6 +250,8 @@ public class Level : MonoBehaviour {
 			}
 			
 			holoTower = (HoloTower) Instantiate(holoTowers[4]);
+			holoTower.transform.localScale = new Vector3(scale / 64f, scale / 64f, scale / 64f);
+			
 			isPlacing = true;
 		} else if (Input.GetKeyDown(KeyCode.Escape)){
 			if (holoTower != null){
@@ -252,13 +262,10 @@ public class Level : MonoBehaviour {
 		} 
 		
 		if (isPlacing && !waitingForNextLevel && !gameOver){
-			Vector3 point3 = Input.mousePosition; //Gets the position of the mouse on the screen
-			Vector2 point = new Vector2(point3.x - (Screen.width / 2f), point3.y - (Screen.height / 2f)); //Convert to a 2D point with the origin in the center of the screen
-			point /= scale; 
-			point.x = Mathf.FloorToInt(point.x) + 0.5f;
-			point.y = Mathf.FloorToInt(point.y) + 0.5f;
+			Vector2 point = ScreenPosToGridPos();
+			Vector3 transPos = GridPosToTransformPos(point);
 			
-			holoTower.transform.position = new Vector3((point.x * scale) / 100f, (point.y * scale) / 100f); //Move the holo tower to the nearest snap-point to the mouse
+			holoTower.transform.position = transPos; //Move the holo tower to the nearest snap-point to the mouse
 			
 			if (point.y >= minY && point.y <= maxY && allowedLanes.Contains(Mathf.FloorToInt(point.x)) && holoTower.toSpawn.buy <= Game.money){ 
 				if (Input.GetButtonUp("Fire1")){ //When the mouse button is pressed
@@ -266,6 +273,7 @@ public class Level : MonoBehaviour {
 					
 					if (tower == null){
 						Tower t = (Tower) Instantiate(holoTower.toSpawn, holoTower.transform.position, holoTower.transform.rotation); //Spawn the tower
+						t.transform.localScale = new Vector3(scale / 64f, scale / 64f, scale / 64f);
 						placedTowers.Add(t);
 						Game.money -= t.buy;
 						
@@ -287,7 +295,7 @@ public class Level : MonoBehaviour {
 				holoTower.GetComponent<SpriteRenderer>().sprite = holoTower.invalid; //Change the sprite to the "invalid" sprite
 					
 				if (Input.GetButtonUp("Fire1")){
-					Vector3 pos = new Vector3((point.x * scale) / 100f, (point.y * scale) / 100f);
+					Vector3 pos = GridPosToTransformPos(ScreenPosToGridPos());
 					if (GetTower(pos) != null){
 						selectedTower = GetTower(pos);
 					}
@@ -295,14 +303,7 @@ public class Level : MonoBehaviour {
 			}
 		} else if (!waitingForNextLevel && !gameOver){
 			if (Input.GetButtonUp("Fire1")){
-				Vector3 point3 = Input.mousePosition; //Gets the position of the mouse on the screen
-				Vector2 point = new Vector2(point3.x - (Screen.width / 2f), point3.y - (Screen.height / 2f)); //Convert to a 2D point with the origin in the center of the screen
-				point /= scale; 
-				point.x = Mathf.FloorToInt(point.x) + 0.5f;
-				point.y = Mathf.FloorToInt(point.y) + 0.5f;
-			
-				Vector3 pos = new Vector3((point.x * scale) / 100f, (point.y * scale) / 100f);
-				selectedTower = GetTower(pos);
+				selectedTower = GetTower(GridPosToTransformPos(ScreenPosToGridPos()));
 			}
 		}
 		
@@ -327,6 +328,28 @@ public class Level : MonoBehaviour {
 		}
 		
 		return null;
+	}
+	
+	Vector2 ScreenPosToGridPos(){
+		Vector3 point3 = Input.mousePosition; //Gets the position of the mouse on the screen
+		Vector2 point2 = new Vector2(point3.x - (Screen.width / 2f), point3.y - (Screen.height / 2f)); //Convert to a 2D point with the origin in the center of the screen
+		point2 /= scale;
+		
+		float sin = Mathf.Sin(Mathf.PI / 4f);
+		float cos = Mathf.Cos(Mathf.PI / 4f);
+		float x = (point2.x * cos) + (point2.y * -sin);
+		float y = (point2.x * sin) + (point2.y * cos);
+		
+		return new Vector2(Mathf.Floor(x), Mathf.Floor(y));
+	}
+	
+	Vector3 GridPosToTransformPos(Vector2 pos){
+		float sin = Mathf.Sin(-Mathf.PI / 4f);
+		float cos = Mathf.Cos(-Mathf.PI / 4f);
+		float x = ((pos.x + 0.5f) * cos) + ((pos.y + 0.5f) * -sin);
+		float y = ((pos.x + 0.5f) * sin) + ((pos.y + 0.5f) * cos);
+		
+		return new Vector3(x * scale / 100f, y * scale / 100f, 0);
 	}
 	
 	void OnGUI(){
