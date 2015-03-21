@@ -36,7 +36,11 @@ public class Level : MonoBehaviour {
 	
 	List<Tower> placedTowers = new List<Tower>(); //A list of all towers currently on the field.
 	
-	public Vector2[] spawnPoints; //A list of spawnpoints where enemies spawn. 
+	public Vector2[] upSpawnPoints; //A list of spawnpoints where enemies spawn, then move up
+	public Vector2[] rightSpawnPoints; //A list of spawnpoints where enemies spawn, then move right
+	public Vector2[] downSpawnPoints; //A list of spawnpoints where enemies spawn, then move down
+	public Vector2[] leftSpawnPoints; //A list of spawnpoints where enemies spawn, then move left
+	
 	bool isSpawning = false;
 	public float minTime = 1f;
 	public float maxTime = 2f;
@@ -84,9 +88,21 @@ public class Level : MonoBehaviour {
 		
 		if (waves[wave][index] != null && !gameOver){
 			System.Random rand = new System.Random();
-			Vector2 point = spawnPoints[rand.Next(spawnPoints.Length)];
 			
-			Instantiate(waves[wave][index], new Vector3((point.x + 0.5f) * scale / 100f, (point.y + 0.5f) * scale / 100f), transform.rotation);
+			Enemy toSpawn = waves[wave][index];
+			Vector2 point = new Vector2();
+			
+			if (toSpawn.direction == Enemy.UP){
+				point = upSpawnPoints[rand.Next(upSpawnPoints.Length)];
+			} else if (toSpawn.direction == Enemy.RIGHT){
+				point = rightSpawnPoints[rand.Next(rightSpawnPoints.Length)];
+			} else if (toSpawn.direction == Enemy.DOWN){
+				point = downSpawnPoints[rand.Next(downSpawnPoints.Length)];
+			} else if (toSpawn.direction == Enemy.LEFT){
+				point = leftSpawnPoints[rand.Next(leftSpawnPoints.Length)];
+			}
+			
+			Instantiate(toSpawn, GridPosToTransformPos(point), transform.rotation);
 		}
 		
 		isSpawning = false;

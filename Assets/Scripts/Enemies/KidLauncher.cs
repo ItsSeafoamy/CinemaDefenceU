@@ -32,8 +32,8 @@ public class KidLauncher : MonoBehaviour {
 	void Start(){
 		startPos = transform.position;
 		
-		int index = Random.Range(0, Level.instance.spawnPoints.Length - 1);
-		targetLane = (int) Level.instance.spawnPoints[index].x;
+		int index = Random.Range(0, Level.instance.upSpawnPoints.Length - 1);
+		targetLane = (int) Level.instance.upSpawnPoints[index].x;
 	}
 	
 	void Update () {

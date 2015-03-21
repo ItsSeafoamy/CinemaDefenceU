@@ -32,6 +32,12 @@ public abstract class Enemy : MonoBehaviour {
 	[System.NonSerialized]
 	public List<Effect> effects = new List<Effect>(); //A list of effects applied to this tower.
 	
+	public Vector2 direction;
+	public static readonly Vector2 UP = new Vector2(1, 1);
+	public static readonly Vector2 RIGHT = new Vector2(1, -1);
+	public static readonly Vector2 DOWN = new Vector2(-1, -1);
+	public static readonly Vector2 LEFT = new Vector2(-1, 1);
+	
 	void Start(){
 		maxHealth = health;
 		displayedHealth = health;
@@ -81,7 +87,7 @@ public abstract class Enemy : MonoBehaviour {
 	*	Should be overriden for enemies with irregular movement patterns (e.g. The old lady with the rabbit hopping then stopping)
 	*/
 	protected virtual void Move(){
-		transform.Translate(Vector3.down * movementSpeed * Time.deltaTime);
+		transform.Translate(direction * movementSpeed * Time.deltaTime);
 	}
 	
 	/**
