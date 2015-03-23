@@ -87,7 +87,7 @@ public abstract class Enemy : MonoBehaviour {
 	*	Should be overriden for enemies with irregular movement patterns (e.g. The old lady with the rabbit hopping then stopping)
 	*/
 	protected virtual void Move(){
-		transform.Translate(direction * movementSpeed * Time.deltaTime);
+		transform.Translate(new Vector3(direction.x, direction.y / 2f) * movementSpeed * Time.deltaTime);
 	}
 	
 	/**

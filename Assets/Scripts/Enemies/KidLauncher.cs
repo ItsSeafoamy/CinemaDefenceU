@@ -40,7 +40,7 @@ public class KidLauncher : MonoBehaviour {
 		phase += Time.deltaTime / launchTime;
 		
 		if (phase >= 1){
-			Instantiate(toSpawn, new Vector3(((targetLane * Level.instance.scale) / 100f) + 0.25f, startPos.y - launchDistance), Quaternion.identity);
+			Instantiate(toSpawn, new Vector3(((targetLane * Level.instance.scaleY) / 100f) + 0.25f, startPos.y - launchDistance), Quaternion.identity);
 			Destroy(gameObject);
 		} else {
 			float modifier = (Mathf.Sin(2*(Mathf.PI)*(phase-0.25f)) + 1) / 2.0f;
@@ -51,7 +51,7 @@ public class KidLauncher : MonoBehaviour {
 			}
 			
 			modifier = modifier / 2.0f * launchDistance;
-			float x = ((targetLane * Level.instance.scale) / 100f) + 0.25f;
+			float x = ((targetLane * Level.instance.scaleY) / 100f) + 0.25f;
 			float xMod = (x - startPos.x) * phase;
 			
 			transform.position = new Vector3(startPos.x + xMod, startPos.y - modifier, startPos.z);

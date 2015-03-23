@@ -24,7 +24,8 @@ public class Level : MonoBehaviour {
 
 	public static Level instance;
 	
-	public int scale; //How big, in pixels, each square on the invisible grid would be
+	public int scaleX; //How big, in pixels, each square on the invisible grid would be
+	public int scaleY;
 	
 	bool isPlacing = false; //If we're currently trying to place a tower.
 	
@@ -230,7 +231,7 @@ public class Level : MonoBehaviour {
 			}
 			
 			holoTower = (HoloTower) Instantiate(holoTowers[0]); //Create the new holotower
-			holoTower.transform.localScale = new Vector3(scale / 64f, scale / 64f, scale / 64f);
+			holoTower.transform.localScale = new Vector3(scaleX / 64f, scaleX / 64f, 1);
 			
 			isPlacing = true; //We are now placing a tower
 		} else if (Input.GetKeyDown(KeyCode.Alpha2)){
@@ -239,7 +240,7 @@ public class Level : MonoBehaviour {
 			}
 			
 			holoTower = (HoloTower) Instantiate(holoTowers[1]);
-			holoTower.transform.localScale = new Vector3(scale / 64f, scale / 64f, scale / 64f);
+			holoTower.transform.localScale = new Vector3(scaleX / 64f, scaleX / 64f, 1);
 			
 			isPlacing = true;
 		} else if (Input.GetKeyDown(KeyCode.Alpha3)){
@@ -248,7 +249,7 @@ public class Level : MonoBehaviour {
 			}
 			
 			holoTower = (HoloTower) Instantiate(holoTowers[2]);
-			holoTower.transform.localScale = new Vector3(scale / 64f, scale / 64f, scale / 64f);
+			holoTower.transform.localScale = new Vector3(scaleX / 64f, scaleX / 64f, 1);
 			
 			isPlacing = true;
 		} else if (Input.GetKeyDown(KeyCode.Alpha4)){
@@ -257,7 +258,7 @@ public class Level : MonoBehaviour {
 			}
 			
 			holoTower = (HoloTower) Instantiate(holoTowers[3]);
-			holoTower.transform.localScale = new Vector3(scale / 64f, scale / 64f, scale / 64f);
+			holoTower.transform.localScale = new Vector3(scaleX / 64f, scaleX / 64f, 1);
 			
 			isPlacing = true;
 		} else if (Input.GetKeyDown(KeyCode.Alpha5)){
@@ -266,7 +267,7 @@ public class Level : MonoBehaviour {
 			}
 			
 			holoTower = (HoloTower) Instantiate(holoTowers[4]);
-			holoTower.transform.localScale = new Vector3(scale / 64f, scale / 64f, scale / 64f);
+			holoTower.transform.localScale = new Vector3(scaleX / 64f, scaleX / 64f, 1);
 			
 			isPlacing = true;
 		} else if (Input.GetKeyDown(KeyCode.Escape)){
@@ -289,7 +290,7 @@ public class Level : MonoBehaviour {
 					
 					if (tower == null){
 						Tower t = (Tower) Instantiate(holoTower.toSpawn, holoTower.transform.position, holoTower.transform.rotation); //Spawn the tower
-						t.transform.localScale = new Vector3(scale / 64f, scale / 64f, scale / 64f);
+						t.transform.localScale = new Vector3(scaleX / 64f, scaleX / 64f, 1);
 						placedTowers.Add(t);
 						Game.money -= t.buy;
 						
@@ -346,10 +347,11 @@ public class Level : MonoBehaviour {
 		return null;
 	}
 	
-	Vector2 ScreenPosToGridPos(){
+	public Vector2 ScreenPosToGridPos(){
 		Vector3 point3 = Input.mousePosition; //Gets the position of the mouse on the screen
 		Vector2 point2 = new Vector2(point3.x - (Screen.width / 2f), point3.y - (Screen.height / 2f)); //Convert to a 2D point with the origin in the center of the screen
-		point2 /= scale;
+		point2.x /= scaleX;
+		point2.y /= scaleY;
 		
 		float sin = Mathf.Sin(Mathf.PI / 4f);
 		float cos = Mathf.Cos(Mathf.PI / 4f);
@@ -359,13 +361,13 @@ public class Level : MonoBehaviour {
 		return new Vector2(Mathf.Floor(x), Mathf.Floor(y));
 	}
 	
-	Vector3 GridPosToTransformPos(Vector2 pos){
+	public Vector3 GridPosToTransformPos(Vector2 pos){
 		float sin = Mathf.Sin(-Mathf.PI / 4f);
 		float cos = Mathf.Cos(-Mathf.PI / 4f);
 		float x = ((pos.x + 0.5f) * cos) + ((pos.y + 0.5f) * -sin);
 		float y = ((pos.x + 0.5f) * sin) + ((pos.y + 0.5f) * cos);
 		
-		return new Vector3(x * scale / 100f, y * scale / 100f, 0);
+		return new Vector3(x * scaleX / 100f, y * scaleY / 100f, 0);
 	}
 	
 	void OnGUI(){
