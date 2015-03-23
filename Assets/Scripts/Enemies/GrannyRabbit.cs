@@ -40,13 +40,15 @@ public class GrannyRabbit : Boss {
 			float modifier = (Mathf.Sin(2*(Mathf.PI)*(phase-0.25f)) + 1) / 2.0f;
 			transform.localScale = Vector3.one * (modifier + 1); //Change the size to give the illusion of us moving towards and away from the screen
 			
+			float yMod = modifier;
+			
 			if (phase > 0.5f){
 				modifier = -modifier + 2;
 			}
 			
 			modifier = modifier / 2.0f * hopDistance;
 			
-			transform.position = new Vector3(lastPos.x, lastPos.y - modifier, lastPos.z);
+			transform.position = new Vector3(lastPos.x + (modifier * direction.x), lastPos.y + (modifier / 2f * direction.y) + yMod, lastPos.z);
 			
 			if (phase >= 1){
 				phase = 0;
