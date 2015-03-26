@@ -41,6 +41,10 @@ public abstract class Enemy : MonoBehaviour {
 	void Start(){
 		maxHealth = health;
 		displayedHealth = health;
+		
+		foreach (GameObject e in GameObject.FindGameObjectsWithTag("Enemy")){
+			Physics2D.IgnoreCollision(e.GetComponent<Collider2D>(), GetComponent<Collider2D>());
+		}
 	}
 		
 	// Update is called once per frame
@@ -87,7 +91,7 @@ public abstract class Enemy : MonoBehaviour {
 	*	Should be overriden for enemies with irregular movement patterns (e.g. The old lady with the rabbit hopping then stopping)
 	*/
 	protected virtual void Move(){
-		transform.Translate(new Vector3(direction.x, direction.y / 2f) * movementSpeed * Time.deltaTime);
+		transform.Translate(new Vector3(direction.x, direction.y / 2f) * movementSpeed * Time.deltaTime / 2f);
 	}
 	
 	/**

@@ -24,16 +24,18 @@ public class Level : MonoBehaviour {
 
 	public static Level instance;
 	
-	public int scaleX; //How big, in pixels, each square on the invisible grid would be
-	public int scaleY;
+	public float scaleX; //How big, in pixels, each square on the invisible grid would be
+	public float scaleY;
 	
 	bool isPlacing = false; //If we're currently trying to place a tower.
 	
 	HoloTower holoTower; //The "holotower" is the semi-transparent tower that shows you what tower and where you're placing it
 	public HoloTower[] holoTowers;
 	
-	public List<int> allowedLanes; //The lanes we can have towers in
-	public int minY, maxY; //The highest and lowest point we can place a tower (So we can't place towers outside the screen)
+	//public List<int> allowedLanes; //The lanes we can have towers in
+	//public int minY, maxY; //The highest and lowest point we can place a tower (So we can't place towers outside the screen)
+	
+	public List<Vector2> invalidAreas;
 	
 	List<Tower> placedTowers = new List<Tower>(); //A list of all towers currently on the field.
 	
@@ -78,7 +80,7 @@ public class Level : MonoBehaviour {
 		//make sure they're not all spawning on top of each oter
 		yield return new WaitForSeconds(seconds);
 		
-		if (waves[wave][index] is Boss){ //If the enemy is a bos
+		if (waves[wave][index] is Boss){ //If the enemy is a boss
 			Boss boss = (Boss) waves[wave][index];
 			
 			AudioClip clip = boss.introClip[Random.Range(0, boss.introClip.Length - 1)];
@@ -103,7 +105,8 @@ public class Level : MonoBehaviour {
 				point = leftSpawnPoints[rand.Next(leftSpawnPoints.Length)];
 			}
 			
-			Instantiate(toSpawn, GridPosToTransformPos(point), transform.rotation);
+			Enemy enemy = (Enemy) Instantiate(toSpawn, GridPosToTransformPos(point), transform.rotation);
+			enemy.transform.localScale = new Vector3(scaleX / 64f, scaleX / 64f, 1);
 		}
 		
 		isSpawning = false;
@@ -284,13 +287,17 @@ public class Level : MonoBehaviour {
 			
 			holoTower.transform.position = transPos; //Move the holo tower to the nearest snap-point to the mouse
 			
-			if (point.y >= minY && point.y <= maxY && allowedLanes.Contains(Mathf.FloorToInt(point.x)) && holoTower.toSpawn.buy <= Game.money){ 
+			if (holoTower.toSpawn.buy <= Game.money && transPos.x > -4.5f + (scaleX/200f) && transPos.x < 4.5f - (scaleX/200f)&& transPos.y > -3f + (scaleY/200f) && transPos.y < 3f - (scaleY/200f)
+				&& !invalidAreas.Contains(new Vector2(point.x, point.y))){ 
+				
 				if (Input.GetButtonUp("Fire1")){ //When the mouse button is pressed
 					Tower tower = GetTower(holoTower.transform.position);
 					
 					if (tower == null){
 						Tower t = (Tower) Instantiate(holoTower.toSpawn, holoTower.transform.position, holoTower.transform.rotation); //Spawn the tower
 						t.transform.localScale = new Vector3(scaleX / 64f, scaleX / 64f, 1);
+						t.GetComponent<SpriteRenderer>().sortingOrder = (int) -t.transform.position.y;						
+						
 						placedTowers.Add(t);
 						Game.money -= t.buy;
 						

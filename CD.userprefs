@@ -2,10 +2,8 @@
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Enemies\Enemy.cs">
     <Files>
-      <File FileName="Assets\Scripts\Enemies\Enemy.cs" Line="11" Column="64" />
-      <File FileName="Assets\Scripts\Level.cs" Line="364" Column="9" />
-      <File FileName="Assets\Scripts\Enemies\KidLauncher.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Game.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Level.cs" Line="107" Column="4" />
+      <File FileName="Assets\Scripts\Enemies\Enemy.cs" Line="15" Column="74" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
