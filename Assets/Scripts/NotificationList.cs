@@ -70,7 +70,7 @@ public class NotificationList : MonoBehaviour {
 			
 			string display = noti.message;
 			Vector2 size = GUI.skin.label.CalcSize(new GUIContent(display));
-			GUI.Label(new Rect(Screen.width - size.x / 2, noti.y + notifitexture.height / 2 - size.y / 2, size.x, size.y), display);
+			GUI.Label(new Rect(Screen.width - notifitexture.width/2f - size.x/2f - 10, noti.y + notifitexture.height / 2 - size.y / 2, size.x, size.y), display);
 			GUI.color = orig;
 		}
 	}
