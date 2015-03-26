@@ -287,7 +287,7 @@ public class Level : MonoBehaviour {
 			
 			holoTower.transform.position = transPos; //Move the holo tower to the nearest snap-point to the mouse
 			
-			if (holoTower.toSpawn.buy <= Game.money && transPos.x > -4.5f + (scaleX/200f) && transPos.x < 4.5f - (scaleX/200f)&& transPos.y > -3f + (scaleY/200f) && transPos.y < 3f - (scaleY/200f)
+			if (holoTower.toSpawn.buy <= Game.money && transPos.x > -5.4f + (scaleX/200f) && transPos.x < 4.5f - 0.9f - (scaleX/200f)&& transPos.y > -3f + (scaleY/200f) && transPos.y < 3f - (scaleY/200f)
 				&& !invalidAreas.Contains(new Vector2(point.x, point.y))){ 
 				
 				if (Input.GetButtonUp("Fire1")){ //When the mouse button is pressed
