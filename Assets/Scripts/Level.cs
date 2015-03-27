@@ -27,6 +27,8 @@ public class Level : MonoBehaviour {
 	public float scaleX; //How big, in pixels, each square on the invisible grid would be
 	public float scaleY;
 	
+	public Vector2 offset;
+	
 	bool isPlacing = false; //If we're currently trying to place a tower.
 	
 	HoloTower holoTower; //The "holotower" is the semi-transparent tower that shows you what tower and where you're placing it
@@ -106,7 +108,7 @@ public class Level : MonoBehaviour {
 			}
 			
 			Enemy enemy = (Enemy) Instantiate(toSpawn, GridPosToTransformPos(point), transform.rotation);
-			enemy.transform.localScale = new Vector3(scaleX / 64f, scaleX / 64f, 1);
+			enemy.transform.localScale = new Vector3(70 / 64f, 70 / 64f, 1);
 		}
 		
 		isSpawning = false;
@@ -234,7 +236,7 @@ public class Level : MonoBehaviour {
 			}
 			
 			holoTower = (HoloTower) Instantiate(holoTowers[0]); //Create the new holotower
-			holoTower.transform.localScale = new Vector3(scaleX / 64f, scaleX / 64f, 1);
+			holoTower.transform.localScale = new Vector3(70 / 64f, 70 / 64f, 1);
 			
 			isPlacing = true; //We are now placing a tower
 		} else if (Input.GetKeyDown(KeyCode.Alpha2)){
@@ -243,7 +245,7 @@ public class Level : MonoBehaviour {
 			}
 			
 			holoTower = (HoloTower) Instantiate(holoTowers[1]);
-			holoTower.transform.localScale = new Vector3(scaleX / 64f, scaleX / 64f, 1);
+			holoTower.transform.localScale = new Vector3(70 / 64f, 70 / 64f, 1);
 			
 			isPlacing = true;
 		} else if (Input.GetKeyDown(KeyCode.Alpha3)){
@@ -252,7 +254,7 @@ public class Level : MonoBehaviour {
 			}
 			
 			holoTower = (HoloTower) Instantiate(holoTowers[2]);
-			holoTower.transform.localScale = new Vector3(scaleX / 64f, scaleX / 64f, 1);
+			holoTower.transform.localScale = new Vector3(70 / 64f, 70 / 64f, 1);
 			
 			isPlacing = true;
 		} else if (Input.GetKeyDown(KeyCode.Alpha4)){
@@ -261,7 +263,7 @@ public class Level : MonoBehaviour {
 			}
 			
 			holoTower = (HoloTower) Instantiate(holoTowers[3]);
-			holoTower.transform.localScale = new Vector3(scaleX / 64f, scaleX / 64f, 1);
+			holoTower.transform.localScale = new Vector3(70 / 64f, 70 / 64f, 1);
 			
 			isPlacing = true;
 		} else if (Input.GetKeyDown(KeyCode.Alpha5)){
@@ -270,7 +272,7 @@ public class Level : MonoBehaviour {
 			}
 			
 			holoTower = (HoloTower) Instantiate(holoTowers[4]);
-			holoTower.transform.localScale = new Vector3(scaleX / 64f, scaleX / 64f, 1);
+			holoTower.transform.localScale = new Vector3(70 / 64f, 70 / 64f, 1);
 			
 			isPlacing = true;
 		} else if (Input.GetKeyDown(KeyCode.Escape)){
@@ -295,7 +297,7 @@ public class Level : MonoBehaviour {
 					
 					if (tower == null){
 						Tower t = (Tower) Instantiate(holoTower.toSpawn, holoTower.transform.position, holoTower.transform.rotation); //Spawn the tower
-						t.transform.localScale = new Vector3(scaleX / 64f, scaleX / 64f, 1);
+						t.transform.localScale = new Vector3(70 / 64f, 70 / 64f, 1);
 						t.GetComponent<SpriteRenderer>().sortingOrder = (int) -t.transform.position.y;
 						
 						placedTowers.Add(t);
@@ -357,6 +359,9 @@ public class Level : MonoBehaviour {
 	public Vector2 ScreenPosToGridPos(){
 		Vector3 point3 = Input.mousePosition; //Gets the position of the mouse on the screen
 		Vector2 point2 = new Vector2(point3.x - (Screen.width / 2f), point3.y - (Screen.height / 2f)); //Convert to a 2D point with the origin in the center of the screen
+		
+		point2 += offset;
+		
 		point2.x /= scaleX; //Divide by the scales
 		point2.y /= scaleY;
 		
@@ -374,7 +379,7 @@ public class Level : MonoBehaviour {
 		float x = ((pos.x + 0.5f) * cos) + ((pos.y + 0.5f) * -sin); //Rotate point by 45 degrees clockwise
 		float y = ((pos.x + 0.5f) * sin) + ((pos.y + 0.5f) * cos);
 		
-		return new Vector3(x * scaleX / 100f, y * scaleY / 100f, 0);
+		return new Vector3((x * scaleX - offset.x) / 100f, (y * scaleY - offset.y) / 100f, 0);
 	}
 	
 	void OnGUI(){
@@ -397,7 +402,7 @@ public class Level : MonoBehaviour {
 			
 			selectedTower.targetMode = GUI.SelectionGrid(new Rect(Screen.width - 200, 144 + 48, 169, 24*5), selectedTower.targetMode, new string[]{"First Spotted", "Furthest", "Last", "Strongest", "Weakest"}, 1, EditorStyles.radioButton);
 			
-			if (GUI.Button(new Rect(Screen.width - 200, 144, 169, 24), "Sell for " + selectedTower.sell + "G (Right-Click)")){
+			if (GUI.Button(new Rect(Screen.width - 200, 144, 169, 24), "Sell for " + selectedTower.sell + "G")){
 				Game.money += selectedTower.sell;
 				NotificationList.AddNotification(new Notification("Sold tower for " + selectedTower.sell + "G", 2));
 				placedTowers.Remove(selectedTower);
