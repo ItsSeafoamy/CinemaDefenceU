@@ -296,7 +296,7 @@ public class Level : MonoBehaviour {
 					if (tower == null){
 						Tower t = (Tower) Instantiate(holoTower.toSpawn, holoTower.transform.position, holoTower.transform.rotation); //Spawn the tower
 						t.transform.localScale = new Vector3(scaleX / 64f, scaleX / 64f, 1);
-						t.GetComponent<SpriteRenderer>().sortingOrder = (int) -t.transform.position.y;						
+						t.GetComponent<SpriteRenderer>().sortingOrder = (int) -t.transform.position.y;
 						
 						placedTowers.Add(t);
 						Game.money -= t.buy;
@@ -357,21 +357,21 @@ public class Level : MonoBehaviour {
 	public Vector2 ScreenPosToGridPos(){
 		Vector3 point3 = Input.mousePosition; //Gets the position of the mouse on the screen
 		Vector2 point2 = new Vector2(point3.x - (Screen.width / 2f), point3.y - (Screen.height / 2f)); //Convert to a 2D point with the origin in the center of the screen
-		point2.x /= scaleX;
+		point2.x /= scaleX; //Divide by the scales
 		point2.y /= scaleY;
 		
 		float sin = Mathf.Sin(Mathf.PI / 4f);
 		float cos = Mathf.Cos(Mathf.PI / 4f);
-		float x = (point2.x * cos) + (point2.y * -sin);
+		float x = (point2.x * cos) + (point2.y * -sin); //Rotate the point by 45 degrees counter-clockwise
 		float y = (point2.x * sin) + (point2.y * cos);
 		
-		return new Vector2(Mathf.Floor(x), Mathf.Floor(y));
+		return new Vector2(Mathf.Floor(x), Mathf.Floor(y)); //Round the values down to snap to grid
 	}
 	
 	public Vector3 GridPosToTransformPos(Vector2 pos){
 		float sin = Mathf.Sin(-Mathf.PI / 4f);
 		float cos = Mathf.Cos(-Mathf.PI / 4f);
-		float x = ((pos.x + 0.5f) * cos) + ((pos.y + 0.5f) * -sin);
+		float x = ((pos.x + 0.5f) * cos) + ((pos.y + 0.5f) * -sin); //Rotate point by 45 degrees clockwise
 		float y = ((pos.x + 0.5f) * sin) + ((pos.y + 0.5f) * cos);
 		
 		return new Vector3(x * scaleX / 100f, y * scaleY / 100f, 0);
@@ -395,6 +395,8 @@ public class Level : MonoBehaviour {
 			GUI.DrawTexture(new Rect(posX - range, posY - range, range*2, range*2), circle);
 			Debug.Log(posX - range);*/
 			
+			selectedTower.targetMode = GUI.SelectionGrid(new Rect(Screen.width - 200, 144 + 48, 169, 24*5), selectedTower.targetMode, new string[]{"First Spotted", "Furthest", "Last", "Strongest", "Weakest"}, 1, EditorStyles.radioButton);
+			
 			if (GUI.Button(new Rect(Screen.width - 200, 144, 169, 24), "Sell for " + selectedTower.sell + "G (Right-Click)")){
 				Game.money += selectedTower.sell;
 				NotificationList.AddNotification(new Notification("Sold tower for " + selectedTower.sell + "G", 2));
@@ -402,8 +404,6 @@ public class Level : MonoBehaviour {
 				Destroy(selectedTower.gameObject);
 				selectedTower = null;
 			}
-			
-			selectedTower.targetMode = GUI.SelectionGrid(new Rect(Screen.width - 200, 144 + 48, 169, 24*5), selectedTower.targetMode, new string[]{"First Spotted", "Furthest", "Last", "Strongest", "Weakest"}, 1, EditorStyles.radioButton);
 		}
 	}
 }
