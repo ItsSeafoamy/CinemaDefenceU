@@ -20,12 +20,12 @@ using System.Collections;
 
 public class IceCreamGun : Tower {
 
-	public static int[] upgradeCost {get; protected set;}
 	public static int currentLevel {get; set;}
 	
+	public float multipler;
+	
 	static IceCreamGun() {
-		upgradeCost = new int[]{0, 1000, 10000}; //All values subject to change, and probably will
-		currentLevel = 1;
+		currentLevel = 0;
 	}
 	
 	public override void Fire(){
@@ -39,7 +39,7 @@ public class IceCreamGun : Tower {
 			SelectTarget(); //gets new target
 		} else { //if not a tallguy effect stands
 			bullet.damage = baseDamage;
-			bullet.AddEffect(new Slowness(0.5f));
+			bullet.AddEffect(new Slowness(multipler));
 			tracked.Remove(target);
 			SelectTarget();
 		}

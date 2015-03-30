@@ -27,9 +27,12 @@ public abstract class Tower : MonoBehaviour {
 	*	The next value (1) would be the cost to upgrade the tower to Lvl. 2
 	*	And the last value (2) would be the cost to upgrade the tower to its max value
 	*/
-	public static int[] upgradeCost {get; protected set;}
 	
 	public static int currentLevel {get; set;} //The current level of the tower.
+	
+	public string name;
+	
+	public int cost; //The cost to purchase/upgrade TO this tower
 	
 	public Bullet bullet; //The bullet prefab this tower shoots
 
@@ -41,14 +44,16 @@ public abstract class Tower : MonoBehaviour {
 	
 	public int targetMode; //Controls what enemies this target should prioritise over
 	protected const int FIRST_SPOTTED = 0; //Prioritises based on the order the enemies entered the trigger zone
-	protected const int FURTHEST = 1; //Prioritises based on how far ahead the enemies are
-	protected const int LAST = 2; //Reversed order of FURTHEST
-	protected const int STRONGEST = 3; //Targets based on the amount of health the enemies have
-	protected const int WEAKEST = 4; //Targets the enemies with less health first
+	protected const int FURTHEST = 3; //Prioritises based on how far ahead the enemies are
+	protected const int LAST = 4; //Reversed order of FURTHEST
+	protected const int STRONGEST = 1; //Targets based on the amount of health the enemies have
+	protected const int WEAKEST = 2; //Targets the enemies with less health first
 	
 	[System.NonSerialized]
 	public List<Enemy> tracked = new List<Enemy>(); //List of all enemies in the trigger zone.
 	protected Enemy target; //Which enemy we're currently targetting
+	
+	public AudioClip info;
 	
 	public abstract void Fire();
 	
@@ -141,5 +146,9 @@ public abstract class Tower : MonoBehaviour {
 			}
 			break;
 		}
+	}
+	
+	public int getLevel(){
+		return (int) GetType().GetProperty("currentLevel").GetValue(null, null);
 	}
 }

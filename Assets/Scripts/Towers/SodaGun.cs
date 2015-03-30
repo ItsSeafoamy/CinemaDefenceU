@@ -20,14 +20,12 @@ using System.Collections;
 
 public class SodaGun : Tower {
 	
-	public static int[] upgradeCost {get; protected set;}
 	public static int currentLevel {get; set;}
 	
 	public float range, damagePercent;
 	
 	static SodaGun() {
-		upgradeCost = new int[]{0, 1000, 10000}; //All values subject to change, and probably will
-		currentLevel = 1; 
+		currentLevel = 0; 
 	}
 	
 	public override void Fire(){

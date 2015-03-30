@@ -36,6 +36,8 @@ public class Shop : MonoBehaviour {
 	public Texture2D upgradeArrow;
 	public Texture2D backArrow;
 	
+	public TowerSet[] towers;
+	
 	public AudioClip bgm;
 	
 	void Start(){
@@ -45,14 +47,133 @@ public class Shop : MonoBehaviour {
 	void OnGUI(){
 		GUI.DrawTexture(new Rect(0, 0, Screen.width, Screen.height), background);
 		
-		//for (int i = 0; i < towers.Length; i++){
-			//TowerSet towerset = towers[i];
-			//int level = (int) towerset[0].GetType().GetProperty("currentLevel").GetValue(null, null);
+		for (int i = 0; i < towers.Length; i++){
+			TowerSet towerset = towers[i];
+			int level = (int) towerset[0].GetType().GetProperty("currentLevel").GetValue(null, null);
 			
-			//Tower current = level == 0 ? null : towerset[level - 1];
-			//Tower next = level == towerset.towers.Length ? null : towerset[level];
-			//}
-		if (GUI.Button (new Rect (Screen.width / 2 - 270, Screen.height / 2 -100, 100, 100), (iceCreamBtn))) {
+			Tower current = level == 0 ? null : towerset[level - 1];
+			Tower next = level == towerset.towers.Length ? null : towerset[level];
+			
+			Tower display = next == null ? current : next;
+			
+			if (GUI.Button(new Rect((i*210) + 16, Screen.height/2f + 110, 100, 100), display.GetComponent<SpriteRenderer>().sprite.texture)){
+					GetComponent<AudioSource>().PlayOneShot(display.info);
+			}
+			
+			GUI.Box(new Rect((i*210), 48, 132, 300), "");
+			GUI.Label(new Rect((i*210) + 8, 64, 132, 25), "<b>" + display.name + "</b>");
+			
+			if (current != null){
+				GUI.Label(new Rect((i*210) + 8, 64 + 25, 132, 25), "Lv. " + (next == null ? "Max" : level.ToString()));
+				GUI.Label(new Rect((i*210) + 8, 64 + 50, 132, 25), "Damage: " + current.baseDamage);
+				GUI.Label(new Rect((i*210) + 8, 64 + 75, 132, 25), "Fire Rate: " + (int) (60 / current.fireRate));
+				GUI.Label(new Rect((i*210) + 8, 64 + 100, 132, 25), "Range: " + current.GetComponent<CircleCollider2D>().radius);
+			
+				if (display is IceCreamGun){
+					GUI.Label(new Rect((i*210) + 8, 64 + 125, 132, 25), "Slowness: " + ((IceCreamGun) current).multipler);
+				} else if (display is Coffee){
+					GUI.Label(new Rect((i*210) + 8, 64 + 125, 132, 25), "DpS: " + ((Coffee) current).damagePerSecond);
+				} else if (display is SodaGun){
+					GUI.Label(new Rect((i*210) + 8, 64 + 125, 132, 25), "AoE: " + ((SodaGun) current).range);
+					GUI.Label(new Rect((i*210) + 8, 64 + 150, 132, 25), "Splash: " + (((int) (current.baseDamage * ((SodaGun) current).damagePercent * 100f)) / 100f));
+				}
+			
+				if (next != null){
+					GUI.color = new Color(0, 255, 0, 255);
+					GUI.Label(new Rect((i*210) + 90, 64 + 25, 132, 25), "→ " + (level+1));
+					
+					if (next.baseDamage > current.baseDamage){
+						GUI.color = new Color(0, 255, 0, 255);
+					} else if (next.baseDamage == current.baseDamage){
+						GUI.color = new Color(0.8f, 0.8f, 0.8f, 255);
+					} else if (next.baseDamage < current.baseDamage){
+						GUI.color = new Color(255, 0, 0, 255);
+					}
+					GUI.Label(new Rect((i*210) + 90, 64 + 50, 132, 25), "→ " + next.baseDamage);
+				
+					if (next.fireRate < current.fireRate){
+						GUI.color = new Color(0, 255, 0, 255);
+					} else if (next.fireRate == current.fireRate){
+						GUI.color = new Color(0.8f, 0.8f, 0.8f, 255);
+					} else if (next.fireRate > current.fireRate){
+						GUI.color = new Color(255, 0, 0, 255);
+					}
+					GUI.Label(new Rect((i*210) + 90, 64 + 75, 132, 25), "→ " + (int) (60 / next.fireRate));
+				
+					if (next.GetComponent<CircleCollider2D>().radius > current.GetComponent<CircleCollider2D>().radius){
+						GUI.color = new Color(0, 255, 0, 255);
+					} else if (next.GetComponent<CircleCollider2D>().radius == current.GetComponent<CircleCollider2D>().radius){
+						GUI.color = new Color(0.8f, 0.8f, 0.8f, 255);
+					} else if (next.GetComponent<CircleCollider2D>().radius < current.GetComponent<CircleCollider2D>().radius){
+						GUI.color = new Color(255, 0, 0, 255);
+					}
+					GUI.Label(new Rect((i*210) + 90, 64 + 100, 132, 25), "→ " + next.GetComponent<CircleCollider2D>().radius);
+				
+					if (display is IceCreamGun){
+						if (((IceCreamGun) next).multipler > ((IceCreamGun) current).multipler){
+							GUI.color = new Color(0, 255, 0, 255);
+						} else if (((IceCreamGun) next).multipler == ((IceCreamGun) current).multipler){
+							GUI.color = new Color(0.8f, 0.8f, 0.8f, 255);
+						} else if (((IceCreamGun) next).multipler < ((IceCreamGun) current).multipler){
+							GUI.color = new Color(255, 0, 0, 255);
+						}
+						GUI.Label(new Rect((i*210) + 90, 64 + 125, 132, 25), "→ " + ((IceCreamGun) next).multipler);
+					} else if (display is Coffee){
+						if (((Coffee) next).damagePerSecond > ((Coffee) current).damagePerSecond){
+							GUI.color = new Color(0, 255, 0, 255);
+						} else if (((Coffee) next).damagePerSecond == ((Coffee) current).damagePerSecond){
+							GUI.color = new Color(0.8f, 0.8f, 0.8f, 255);
+						} else if (((Coffee) next).damagePerSecond < ((Coffee) current).damagePerSecond){
+							GUI.color = new Color(255, 0, 0, 255);
+						}
+						GUI.Label(new Rect((i*210) + 90, 64 + 125, 132, 25), "→ " + ((Coffee) next).damagePerSecond);
+					} else if (display is SodaGun){
+						if (((SodaGun) next).range > ((SodaGun) current).range){
+							GUI.color = new Color(0, 255, 0, 255);
+						} else if (((SodaGun) next).range == ((SodaGun) current).range){
+							GUI.color = new Color(0.8f, 0.8f, 0.8f, 255);
+						} else if (((SodaGun) next).range < ((SodaGun) current).range){
+							GUI.color = new Color(255, 0, 0, 255);
+						}
+						GUI.Label(new Rect((i*210) + 90, 64 + 125, 132, 25), "→ " + ((SodaGun) next).range);
+						
+						if (((SodaGun) next).damagePercent > ((SodaGun) current).damagePercent){
+							GUI.color = new Color(0, 255, 0, 255);
+						} else if (((SodaGun) next).damagePercent == ((SodaGun) current).damagePercent){
+							GUI.color = new Color(0.8f, 0.8f, 0.8f, 255);
+						} else if (((SodaGun) next).damagePercent < ((SodaGun) current).damagePercent){
+							GUI.color = new Color(255, 0, 0, 255);
+						}
+						GUI.Label(new Rect((i*210) + 90, 64 + 150, 132, 25), "→ " + (((int) (next.baseDamage * ((SodaGun) next).damagePercent * 100f)) / 100f));
+					}
+				
+					GUI.color = new Color(255, 255, 255, 255);
+				}	
+			} else {
+				GUI.color = new Color(255, 0, 0, 255);
+				GUI.Label(new Rect((i*210) + 8, 64 + 25, 132, 25), "Locked");
+				GUI.color = new Color(255, 255, 255, 255);
+			}
+			
+			if (next != null){
+				string cost = "Cost: " + next.cost + "G";
+				Vector2 size = GUI.skin.label.CalcSize(new GUIContent(cost));
+				
+				GUI.Label(new Rect((i*210) + 16 + 50 - size.x/2f, Screen.height/2f + 220, 100, 100), cost);
+				if (GUI.Button (new Rect((i*210) + 116, Screen.height/2f + 110, 25, 25), upgradeArrow) && Game.money >= next.cost) {
+					Game.money -= next.cost;
+					towerset[0].GetType().GetProperty("currentLevel").SetValue(null, ++level, null);
+					Debug.Log("Upgraded to level: " + level);
+				}
+			} else {
+				string maxed = "Maxed";
+				Vector2 size = GUI.skin.label.CalcSize(new GUIContent(maxed));
+				
+				GUI.Label(new Rect((i*210) + 16 + 50 - size.x/2f, Screen.height/2f + 220, 100, 100), maxed);
+			}
+		}
+		
+		/*if (GUI.Button (new Rect (Screen.width / 2 - 270, Screen.height / 2 -100, 100, 100), (iceCreamBtn))) {
 			Debug.Log ("Clicked the button!");
 			GetComponent<AudioSource>().PlayOneShot(iceCream);
 		}
@@ -95,9 +216,9 @@ public class Shop : MonoBehaviour {
 		
 		if (GUI.Button (new Rect(Screen.width/2 +370, Screen.height/2 -100, 25, 25), (upgradeArrow))&& Game.money <=200 && Coffee.currentLevel < 4) {
 			Coffee.currentLevel ++; 
-		}
+		}*/
 		
-		if (GUI.Button (new Rect(Screen.width/2-60, Screen.height/2 + 170, 50, 50), (backArrow))) {
+		if (GUI.Button (new Rect(Screen.width-58, Screen.height/2 + 135, 50, 50), backArrow)) {
 			Application.LoadLevel(Game.nextLevel);
 		}
 	}

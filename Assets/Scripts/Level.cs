@@ -141,13 +141,13 @@ public class Level : MonoBehaviour {
 					int adult = Random.Range(1, 2);
 					int gained2 = (adultPrice * adult) + (childPrice * children);
 					Game.money += gained2;
-					NotificationList.AddNotification(new Notification(adult + " adult ticket" + (adult == 2 ? "s" : "") + "\nand " + children + " child ticket" + (children == 2 ? "s" : "") + " sold for " + gained2 + "G!", 2));
+					NotificationList.AddNotification(new Notification(adult + " adult ticket" + (adult == 2 ? "s" : "") + " and " + children + " child ticket" + (children == 2 ? "s" : "") + "\nsold for " + gained2 + "G!", 2));
 					break;
 				case 3:
 					int students = Random.Range(1,2);
 					int gained3 = studentPrice * students;
 					Game.money += gained3;
-					NotificationList.AddNotification(new Notification(students + " student ticket" + (students == 2 ? "s" : "") + " sold for " + gained3 + "G!", 2));
+					NotificationList.AddNotification(new Notification(students + " student ticket" + (students == 2 ? "s" : "") + "\nsold for " + gained3 + "G!", 2));
 					break;
 				case 4:
 					int students2 = Random.Range(1, 6);
@@ -204,7 +204,7 @@ public class Level : MonoBehaviour {
 		if (happiness < 0){
 			happiness = 0;
 			gameOver = true;
-			NotificationList.AddNotification(new Notification("Game Over!\nYour customers are unhappy\nand have all left", 10));
+			NotificationList.AddNotification(new Notification("Game Over!\nYour customers are\nunhappy and have all left", 10));
 			
 			if (holoTower != null){
 				Destroy(holoTower.gameObject);
@@ -235,46 +235,66 @@ public class Level : MonoBehaviour {
 				Destroy(holoTower.gameObject);
 			}
 			
-			holoTower = (HoloTower) Instantiate(holoTowers[0]); //Create the new holotower
-			holoTower.transform.localScale = new Vector3(70 / 64f, 70 / 64f, 1);
+			if (holoTowers[0].toSpawn[0].getLevel() > 0){
+				holoTower = (HoloTower) Instantiate(holoTowers[0]); //Create the new holotower
+				holoTower.transform.localScale = new Vector3(70 / 64f, 70 / 64f, 1);
 			
-			isPlacing = true; //We are now placing a tower
+				isPlacing = true; //We are now placing a tower
+			} else {
+				isPlacing = false;
+			}
 		} else if (Input.GetKeyDown(KeyCode.Alpha2)){
 			if (holoTower != null){
 				Destroy(holoTower.gameObject);
 			}
 			
-			holoTower = (HoloTower) Instantiate(holoTowers[1]);
-			holoTower.transform.localScale = new Vector3(70 / 64f, 70 / 64f, 1);
-			
-			isPlacing = true;
+			if (holoTowers[1].toSpawn[0].getLevel() > 0){
+				holoTower = (HoloTower) Instantiate(holoTowers[1]); //Create the new holotower
+				holoTower.transform.localScale = new Vector3(70 / 64f, 70 / 64f, 1);
+				
+				isPlacing = true; //We are now placing a tower
+			} else {
+				isPlacing = false;
+			}
 		} else if (Input.GetKeyDown(KeyCode.Alpha3)){
 			if (holoTower != null){
 				Destroy(holoTower.gameObject);
 			}
 			
-			holoTower = (HoloTower) Instantiate(holoTowers[2]);
-			holoTower.transform.localScale = new Vector3(70 / 64f, 70 / 64f, 1);
-			
-			isPlacing = true;
+			if (holoTowers[2].toSpawn[0].getLevel() > 0){
+				holoTower = (HoloTower) Instantiate(holoTowers[2]); //Create the new holotower
+				holoTower.transform.localScale = new Vector3(70 / 64f, 70 / 64f, 1);
+				
+				isPlacing = true; //We are now placing a tower
+			} else {
+				isPlacing = false;
+			}
 		} else if (Input.GetKeyDown(KeyCode.Alpha4)){
 			if (holoTower != null){
 				Destroy(holoTower.gameObject);
 			}
 			
-			holoTower = (HoloTower) Instantiate(holoTowers[3]);
-			holoTower.transform.localScale = new Vector3(70 / 64f, 70 / 64f, 1);
-			
-			isPlacing = true;
+			if (holoTowers[3].toSpawn[0].getLevel() > 0){
+				holoTower = (HoloTower) Instantiate(holoTowers[3]); //Create the new holotower
+				holoTower.transform.localScale = new Vector3(70 / 64f, 70 / 64f, 1);
+				
+				isPlacing = true; //We are now placing a tower
+			} else {
+				isPlacing = false;
+			}
 		} else if (Input.GetKeyDown(KeyCode.Alpha5)){
 			if (holoTower != null){
 				Destroy(holoTower.gameObject);
 			}
 			
-			holoTower = (HoloTower) Instantiate(holoTowers[4]);
-			holoTower.transform.localScale = new Vector3(70 / 64f, 70 / 64f, 1);
-			
-			isPlacing = true;
+			if (holoTowers[4].toSpawn[0].getLevel() > 0){
+				holoTower = (HoloTower) Instantiate(holoTowers[4]); //Create the new holotower
+				holoTower.transform.localScale = new Vector3(70 / 64f, 70 / 64f, 1);
+				
+				isPlacing = true; //We are now placing a tower
+			} else {
+				isPlacing = false;
+			}
 		} else if (Input.GetKeyDown(KeyCode.Escape)){
 			if (holoTower != null){
 				Destroy(holoTower.gameObject);
@@ -289,14 +309,14 @@ public class Level : MonoBehaviour {
 			
 			holoTower.transform.position = transPos; //Move the holo tower to the nearest snap-point to the mouse
 			
-			if (holoTower.toSpawn.buy <= Game.money && transPos.x > -5.4f + (scaleX/200f) && transPos.x < 4.5f - 0.9f - (scaleX/200f)&& transPos.y > -3f + (scaleY/200f) && transPos.y < 3f - (scaleY/200f)
+			if (holoTower.toSpawn[holoTower.toSpawn[0].getLevel()-1].buy <= Game.money && transPos.x > -5.4f + (scaleX/200f) && transPos.x < 4.5f - 0.9f - (scaleX/200f)&& transPos.y > -3f + (scaleY/200f) && transPos.y < 3f - (scaleY/200f)
 				&& !invalidAreas.Contains(new Vector2(point.x, point.y))){ 
 				
 				if (Input.GetButtonUp("Fire1")){ //When the mouse button is pressed
 					Tower tower = GetTower(holoTower.transform.position);
 					
 					if (tower == null){
-						Tower t = (Tower) Instantiate(holoTower.toSpawn, holoTower.transform.position, holoTower.transform.rotation); //Spawn the tower
+						Tower t = (Tower) Instantiate(holoTower.toSpawn[holoTower.toSpawn[0].getLevel()-1], holoTower.transform.position, holoTower.transform.rotation); //Spawn the tower
 						t.transform.localScale = new Vector3(70 / 64f, 70 / 64f, 1);
 						t.GetComponent<SpriteRenderer>().sortingOrder = (int) -t.transform.position.y;
 						
@@ -319,8 +339,8 @@ public class Level : MonoBehaviour {
 				holoTower.GetComponent<SpriteRenderer>().sprite = holoTower.valid; //Change the sprite to the "valid" sprite to show the player they can place the tower here
 			} else {				
 				holoTower.GetComponent<SpriteRenderer>().sprite = holoTower.invalid; //Change the sprite to the "invalid" sprite
-					
-				if (Input.GetButtonUp("Fire1")){
+				
+				if (Input.GetButtonUp("Fire1") && Input.mousePosition.x < Screen.width - 180){
 					Vector3 pos = GridPosToTransformPos(ScreenPosToGridPos());
 					if (GetTower(pos) != null){
 						selectedTower = GetTower(pos);
@@ -328,7 +348,7 @@ public class Level : MonoBehaviour {
 				}
 			}
 		} else if (!waitingForNextLevel && !gameOver){
-			if (Input.GetButtonUp("Fire1")){
+			if (Input.GetButtonUp("Fire1") && Input.mousePosition.x < Screen.width - 180){
 				selectedTower = GetTower(GridPosToTransformPos(ScreenPosToGridPos()));
 			}
 		}
@@ -383,26 +403,17 @@ public class Level : MonoBehaviour {
 	}
 	
 	void OnGUI(){
-		GUI.Box(new Rect(Screen.width - 216, 16, 200, Screen.height - 32), "");
+		GUI.DrawTexture(new Rect(Screen.width - 128, 32, health.width / 2, health.height / 2), health);
+		GUI.DrawTexture(new Rect(Screen.width - 128, 32 + health.height + 8, money.width / 2, money.height), money);
 		
-		GUI.DrawTexture(new Rect(Screen.width - 200, 32, health.width / 2, health.height / 2), health);
-		GUI.DrawTexture(new Rect(Screen.width - 200, 32 + health.height + 8, money.width / 2, money.height), money);
-		
-		GUI.Label(new Rect(Screen.width - 200 + health.width/2 + 8, 32, 200, 20), (int)displayedHappiness + "");
-		GUI.Label(new Rect(Screen.width - 200 + health.width/2 + 8, 32 + health.height + 8, 200, 20), displayedMoney + "G");
+		GUI.Label(new Rect(Screen.width - 128 + health.width/2 + 8, 32, 200, 20), (int)displayedHappiness + "");
+		GUI.Label(new Rect(Screen.width - 128 + health.width/2 + 8, 32 + health.height + 8, 200, 20), displayedMoney + "G");
 		
 		if (selectedTower != null){
-			/*Vector3 pos = selectedTower.transform.position;
-			float range = selectedTower.GetComponent<CircleCollider2D>().radius * 100;
-			float posX = (pos.x * 100f) + (Screen.width/2);
-			float posY = (pos.y * 100f) + (Screen.height/2);
 			
-			GUI.DrawTexture(new Rect(posX - range, posY - range, range*2, range*2), circle);
-			Debug.Log(posX - range);*/
+			selectedTower.targetMode = GUI.SelectionGrid(new Rect(Screen.width - 128, 160, 169, 24*3), selectedTower.targetMode, new string[]{"First Spotted", "Strongest", "Weakest"}, 1, EditorStyles.radioButton);
 			
-			selectedTower.targetMode = GUI.SelectionGrid(new Rect(Screen.width - 200, 144 + 48, 169, 24*5), selectedTower.targetMode, new string[]{"First Spotted", "Furthest", "Last", "Strongest", "Weakest"}, 1, EditorStyles.radioButton);
-			
-			if (GUI.Button(new Rect(Screen.width - 200, 144, 169, 24), "Sell for " + selectedTower.sell + "G")){
+			if (GUI.Button(new Rect(Screen.width - 170, 168 + (24*3), 160, 24), "Sell for " + selectedTower.sell + "G")){
 				Game.money += selectedTower.sell;
 				NotificationList.AddNotification(new Notification("Sold tower for " + selectedTower.sell + "G", 2));
 				placedTowers.Remove(selectedTower);

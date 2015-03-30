@@ -20,11 +20,9 @@ using System.Collections;
 
 public class PopcornGun : Tower {
 
-	public static int[] upgradeCost {get; protected set;}
 	public static int currentLevel {get; set;}
 	
 	static PopcornGun() {
-		upgradeCost = new int[]{0, 1000, 10000}; //All values subject to change, and probably will
 		currentLevel = 1;
 	}
 	

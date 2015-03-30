@@ -64,13 +64,13 @@ public class NotificationList : MonoBehaviour {
 			colour.a = Mathf.Min(noti.time, 1);
 			GUI.color = colour;
 			
-			GUI.DrawTexture(new Rect(Screen.width  - notifitexture.width - 10, noti.y, notifitexture.width, notifitexture.height), notifitexture);
+			GUI.DrawTexture(new Rect(Screen.width  - 170 - 5, noti.y, 170, notifitexture.height), notifitexture);
 			
 			GUI.color = new Color(0, 0, 0, colour.a);
 			
 			string display = noti.message;
 			Vector2 size = GUI.skin.label.CalcSize(new GUIContent(display));
-			GUI.Label(new Rect(Screen.width - notifitexture.width/2f - size.x/2f - 10, noti.y + notifitexture.height / 2 - size.y / 2, size.x, size.y), display);
+			GUI.Label(new Rect(Screen.width - 85 - size.x/2f - 5, noti.y + notifitexture.height / 2 - size.y / 2, size.x, size.y), display);
 			GUI.color = orig;
 		}
 	}

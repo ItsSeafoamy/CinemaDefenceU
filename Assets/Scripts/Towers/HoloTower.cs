@@ -20,7 +20,7 @@ using System.Collections;
 
 public class HoloTower : MonoBehaviour {
 	
-	public Tower toSpawn; //The tower to spawn
+	public TowerSet toSpawn; //The tower to spawn
 	public Sprite valid, invalid;
 	public AudioClip[] placeSounds;
 	
