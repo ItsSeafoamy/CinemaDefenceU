@@ -48,7 +48,7 @@ public class GrannyRabbit : Boss {
 			
 			modifier = modifier / 2.0f * hopDistance;
 			
-			transform.position = new Vector3(lastPos.x + (modifier * direction.x), lastPos.y + (modifier / 2f * direction.y) + yMod, lastPos.z);
+			transform.position = new Vector3(lastPos.x + (modifier * direction.x), lastPos.y + (modifier / Mathf.Sqrt(3) * direction.y) + yMod, lastPos.z);
 			
 			if (phase >= 1){
 				phase = 0;

@@ -54,6 +54,7 @@
      <Compile Include="Assets\Scripts\Enemies\Boss.cs" />
      <Compile Include="Assets\Scripts\Enemies\CrazyMum.cs" />
      <Compile Include="Assets\Scripts\Enemies\Enemy.cs" />
+     <Compile Include="Assets\Scripts\Enemies\GenericEnemy.cs" />
      <Compile Include="Assets\Scripts\Enemies\GrannyRabbit.cs" />
      <Compile Include="Assets\Scripts\Enemies\Kid.cs" />
      <Compile Include="Assets\Scripts\Enemies\KidLauncher.cs" />
