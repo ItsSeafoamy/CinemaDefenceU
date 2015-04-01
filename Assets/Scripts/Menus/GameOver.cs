@@ -38,3 +38,4 @@ public class GameOver : MonoBehaviour
 		}
 	}
 }
+//can be used for failure state and success state
