@@ -117,6 +117,9 @@ public class Level : MonoBehaviour {
 	void Start(){
 		instance = this;
 		
+		displayedMoney = Game.money;
+		displayedHappiness = happiness;
+		
 		Music.Change(bgm);
 	}
 	
@@ -309,8 +312,38 @@ public class Level : MonoBehaviour {
 			
 			holoTower.transform.position = transPos; //Move the holo tower to the nearest snap-point to the mouse
 			
+			bool enemyLane = false;
+			
+			foreach (Vector2 v in upSpawnPoints){
+				if (v.x == point.x){
+					enemyLane = true;
+					break;
+				}
+			}
+			
+			foreach (Vector2 v in downSpawnPoints){
+				if (v.x == point.x){
+					enemyLane = true;
+					break;
+				}
+			}
+			
+			foreach (Vector2 v in leftSpawnPoints){
+				if (v.y == point.y){
+					enemyLane = true;
+					break;
+				}
+			}
+			
+			foreach (Vector2 v in rightSpawnPoints){
+				if (v.y == point.y){
+					enemyLane = true;
+					break;
+				}
+			}
+			
 			if (holoTower.toSpawn[holoTower.toSpawn[0].getLevel()-1].buy <= Game.money && transPos.x > -5.4f + (scaleX/200f) && transPos.x < 4.5f - 0.9f - (scaleX/200f)&& transPos.y > -3f + (scaleY/200f) && transPos.y < 3f - (scaleY/200f)
-				&& !invalidAreas.Contains(new Vector2(point.x, point.y))){ 
+				&& !invalidAreas.Contains(new Vector2(point.x, point.y)) && !enemyLane){ 
 				
 				if (Input.GetButtonUp("Fire1")){ //When the mouse button is pressed
 					Tower tower = GetTower(holoTower.transform.position);
@@ -329,10 +362,6 @@ public class Level : MonoBehaviour {
 						GetComponent<AudioSource>().PlayOneShot(playSound);
 					} else {
 						selectedTower = tower;
-						//Game.money += tower.sell;
-						//NotificationList.AddNotification(new Notification("Sold tower for " + tower.sell + "G", 2));
-						//placedTowers.Remove(tower);
-						//Destroy(tower.gameObject);
 					}
 				}
 				

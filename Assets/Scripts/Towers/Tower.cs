@@ -55,6 +55,8 @@ public abstract class Tower : MonoBehaviour {
 	
 	public AudioClip info;
 	
+	public Sprite northEastSprite, southEastSprite, southWestSprite, northWestSprite;
+	
 	public abstract void Fire();
 	
 	void Update(){
@@ -64,6 +66,21 @@ public abstract class Tower : MonoBehaviour {
 		} 
 		
 		cooldown -= Time.deltaTime;
+		
+		if (target != null){
+			float angle = Mathf.Atan2(target.transform.position.y - transform.position.y, target.transform.position.x - transform.position.x);
+			
+			Debug.Log(angle);
+			if (angle >= 0 && angle <= Mathf.PI/2f && northEastSprite != null){
+				GetComponent<SpriteRenderer>().sprite = northEastSprite;
+			} else if (angle >= Mathf.PI/2f && angle <= Mathf.PI && southEastSprite != null){
+				GetComponent<SpriteRenderer>().sprite = southEastSprite;
+			} else if (angle >= -Mathf.PI && angle <= -Mathf.PI/2f && southWestSprite != null){
+				GetComponent<SpriteRenderer>().sprite = southWestSprite;
+			} else if (angle >= -Mathf.PI/2f && angle <= 0 && northWestSprite !=  null){
+				GetComponent<SpriteRenderer>().sprite = northWestSprite;
+			}
+		}
 	}
 	
 	/**
