@@ -35,7 +35,7 @@ public class StartMenu : MonoBehaviour
 		if (GUI.Button (new Rect (Screen.width / 2, Screen.height / 2, 200, 200), (startBtn))) {
 			Application.LoadLevel ("CarPark");
 		}
-		if (GUI.Button (new Rect (Screen.width / 2, Screen.height / 2, 200, 200), (startBtn))) {
+		if (GUI.Button (new Rect (Screen.width / 2, Screen.height / 2 -350, 200, 200), (startBtn))) {
 			Application.LoadLevel ("Tutorial");
 		}
 	}
