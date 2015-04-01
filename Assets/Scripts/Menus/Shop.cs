@@ -57,6 +57,7 @@ public class Shop : MonoBehaviour {
 			Tower display = next == null ? current : next;
 			
 			if (GUI.Button(new Rect((i*210) + 16, Screen.height/2f + 110, 100, 100), display.GetComponent<SpriteRenderer>().sprite.texture)){
+					GetComponent<AudioSource>().Stop();
 					GetComponent<AudioSource>().PlayOneShot(display.info);
 			}
 			
