@@ -64,6 +64,7 @@
      <Compile Include="Assets\Scripts\Game.cs" />
      <Compile Include="Assets\Scripts\KillZone.cs" />
      <Compile Include="Assets\Scripts\Level.cs" />
+     <Compile Include="Assets\Scripts\Menus\GameOver.cs" />
      <Compile Include="Assets\Scripts\Menus\MainMenu.cs" />
      <Compile Include="Assets\Scripts\Menus\Shop.cs" />
      <Compile Include="Assets\Scripts\Menus\Tutorial.cs" />

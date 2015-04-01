@@ -228,7 +228,7 @@ public class Level : MonoBehaviour {
 		}
 		
 		if (gameOver && Input.GetKeyDown(KeyCode.Return)){
-			Application.LoadLevel(DeathLevel);
+			Application.LoadLevel("DeathLevel");
 		}
 		
 		if (Input.GetKeyDown(KeyCode.Alpha1)){
