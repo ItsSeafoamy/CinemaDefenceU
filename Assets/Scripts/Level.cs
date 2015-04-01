@@ -144,7 +144,7 @@ public class Level : MonoBehaviour {
 					int adult = Random.Range(1, 2);
 					int gained2 = (adultPrice * adult) + (childPrice * children);
 					Game.money += gained2;
-					NotificationList.AddNotification(new Notification(adult + " adult ticket" + (adult == 2 ? "s" : "") + " and " + children + " child ticket" + (children == 2 ? "s" : "") + "\nsold for " + gained2 + "G!", 2));
+					NotificationList.AddNotification(new Notification(adult + " adult ticket" + (adult == 2 ? "s" : "") + " and\n" + children + " child ticket" + (children == 2 ? "s" : "") + " sold for " + gained2 + "G!", 2));
 					break;
 				case 3:
 					int students = Random.Range(1,2);
@@ -190,9 +190,9 @@ public class Level : MonoBehaviour {
 						if (Game.money < 0){
 							NotificationList.AddNotification(new Notification("You did not make enough money\n and have went bankrupt", 10));
 							gameOver = true;
-						} else {
+						} else if (happiness > 0){
 							Game.money += victoryBonus;
-							NotificationList.AddNotification(new Notification("Congratulations!\n Here's " + victoryBonus + "G for your hard work", 10));
+							NotificationList.AddNotification(new Notification("Congratulations!\n Here's " + victoryBonus + "G\nfor your hard work", 10));
 							waitingForNextLevel = true;
 						}
 						
@@ -204,7 +204,7 @@ public class Level : MonoBehaviour {
 			}
 		}
 		
-		if (happiness < 0){
+		if (happiness <= 0){
 			happiness = 0;
 			gameOver = true;
 			NotificationList.AddNotification(new Notification("Game Over!\nYour customers are\nunhappy and have all left", 10));

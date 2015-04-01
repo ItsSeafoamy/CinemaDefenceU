@@ -56,6 +56,7 @@ public abstract class Tower : MonoBehaviour {
 	public AudioClip info;
 	
 	public Sprite northEastSprite, southEastSprite, southWestSprite, northWestSprite;
+	public Sprite icon;
 	
 	public abstract void Fire();
 	
