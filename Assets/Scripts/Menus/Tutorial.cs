@@ -18,7 +18,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class StartMenu : MonoBehaviour 
+public class Tutorial : MonoBehaviour 
 {
 	public AudioClip bgm;
 	public Texture2D background;
