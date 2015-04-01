@@ -1,10 +1,10 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Towers\Tower.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Level.cs">
     <Files>
-      <File FileName="Assets\Scripts\Level.cs" Line="433" Column="2" />
-      <File FileName="Assets\Scripts\Menus\Shop.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Towers\Tower.cs" Line="79" Column="63" />
+      <File FileName="Assets\Scripts\Level.cs" Line="218" Column="5" />
+      <File FileName="Assets\Scripts\Menus\Shop.cs" Line="227" Column="1" />
+      <File FileName="Assets\Scripts\Towers\Tower.cs" Line="171" Column="2" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

@@ -25,7 +25,7 @@ public class Coffee : Tower {
 	public float damagePerSecond;
 	
 	static Coffee() {
-		currentLevel = 1; 
+		currentLevel = 0; 
 	}
 	
 	public override void Fire(){

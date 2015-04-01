@@ -24,12 +24,7 @@ using System.Collections;
 */
 public class Game {
 	
-	public static int money = 10000000; //How much money the player currently has.
-		
-	//Statistics
-	public static int shotsFired = 0; //Total time all towers have fired
-	public static int enemiesKilled = 0; //Total enemies defeated
-	public static int fails = 0; //Fail counter
+	public static int money = 100; //How much money the player currently has.
 	
 	public static string nextLevel;
 	
@@ -37,7 +32,9 @@ public class Game {
 	public static System.Type[] towers = new System.Type[]{
 		typeof(PopcornGun),
 		typeof(HotdogCannon),
-		typeof(IceCreamGun)
+		typeof(IceCreamGun),
+		typeof(Coffee),
+		typeof(SodaGun)
 	};
 	
 	/**
@@ -45,10 +42,11 @@ public class Game {
 	*/
 	public static void Reset(){
 		money = 100;
+		nextLevel = null;
 		
 		foreach (System.Type t in towers){
-			if (t == typeof(PopcornGun)){
-				t.GetProperty("currentLevel").SetValue(null, 1, null); //We start with the popcorn gun already unlocked :)
+			if (t == typeof(PopcornGun) || t == typeof(HotdogCannon)){
+				t.GetProperty("currentLevel").SetValue(null, 1, null); //We start with the popcorn gun and hotdog cannon already unlocked :)
 			} else {
 				t.GetProperty("currentLevel").SetValue(null, 0, null);
 			}

@@ -21,27 +21,27 @@ using System.Collections;
 public class Shop : MonoBehaviour {
 	
 	public Texture2D background;
-	public Texture2D iceCreamBtn;
-	public Texture2D hotdogBtn;
-	public Texture2D popcornBtn;
-	public Texture2D sodaBtn;
-	public Texture2D coffeeBtn;
-	public AudioClip iceCream;
-	public AudioClip hotdog;
-	public AudioClip popcorn;
-	public AudioClip soda;
-	public AudioClip coffee;
-	public AudioClip welcome;
-	public AudioClip bye;
+
 	public Texture2D upgradeArrow;
 	public Texture2D backArrow;
+	
+	public Texture2D money;
+	int displayedMoney;
 	
 	public TowerSet[] towers;
 	
 	public AudioClip bgm;
 	
 	void Start(){
+		displayedMoney = Game.money;
+		
 		Music.Change(bgm);
+	}
+	
+	void Update(){
+		if ((int) displayedMoney < (int) Game.money) displayedMoney++;
+		else if ((int) displayedMoney > (int) Game.money) displayedMoney--;
+		else displayedMoney = Game.money;
 	}
 	
 	void OnGUI(){
@@ -164,7 +164,6 @@ public class Shop : MonoBehaviour {
 				if (GUI.Button (new Rect((i*210) + 116, Screen.height/2f + 110, 25, 25), upgradeArrow) && Game.money >= next.cost) {
 					Game.money -= next.cost;
 					towerset[0].GetType().GetProperty("currentLevel").SetValue(null, ++level, null);
-					Debug.Log("Upgraded to level: " + level);
 				}
 			} else {
 				string maxed = "Maxed";
@@ -173,6 +172,10 @@ public class Shop : MonoBehaviour {
 				GUI.Label(new Rect((i*210) + 16 + 50 - size.x/2f, Screen.height/2f + 220, 100, 100), maxed);
 			}
 		}
+		
+		GUI.Box(new Rect(Screen.width - 128 - 8 + 40, 32 - 8 + 24, money.width/2 + 16 + (displayedMoney >= 1000 ? 48 : displayedMoney >= 100 ? 40 : displayedMoney >= 10 ? 32 : 32 - 8), money.height + 16), "");
+		GUI.DrawTexture(new Rect(Screen.width - 128 + 40, 32 + 24, money.width / 2, money.height), money);
+		GUI.Label(new Rect(Screen.width - 128 + 40 + money.width/2 + 8, 36 + 24, 200, 20), displayedMoney + "G");
 		
 		/*if (GUI.Button (new Rect (Screen.width / 2 - 270, Screen.height / 2 -100, 100, 100), (iceCreamBtn))) {
 			Debug.Log ("Clicked the button!");

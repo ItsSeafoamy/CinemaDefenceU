@@ -78,6 +78,8 @@ public class Level : MonoBehaviour {
 	
 	public AudioClip bgm;
 	
+	public bool finalLevel;
+	
 	IEnumerator SpawnObject(int index, float seconds){
 		//make sure they're not all spawning on top of each oter
 		yield return new WaitForSeconds(seconds);
@@ -124,6 +126,9 @@ public class Level : MonoBehaviour {
 	}
 	
 	void Update(){
+		if (Random.Range(0, 7776) == 0){
+			NotificationList.AddNotification(new Notification("Easter Egg!\nThere was a\n1 in 7777 chance\nof this appearing\nLucky You!", 5));
+		}
 		if (!waiting && !waitingForNextLevel && !gameOver){
 			if (nextPurchase <= 0){
 				switch (Random.Range(0, 4)){
@@ -188,12 +193,14 @@ public class Level : MonoBehaviour {
 						NotificationList.AddNotification(new Notification("Wave Cleared\nPress ENTER to continue\nto the next wave", 5));
 					} else {
 						if (Game.money < 0){
-							NotificationList.AddNotification(new Notification("You did not make enough money\n and have went bankrupt", 10));
+							NotificationList.AddNotification(new Notification("You did not make enough\nmoney and have went bankrupt", 10));
 							gameOver = true;
-						} else if (happiness > 0){
+						} else if (happiness > 0 && !finalLevel){
 							Game.money += victoryBonus;
 							NotificationList.AddNotification(new Notification("Congratulations!\n Here's " + victoryBonus + "G\nfor your hard work", 10));
 							waitingForNextLevel = true;
+						} else if (happiness > 0 && finalLevel){
+							Application.LoadLevel("Victory");
 						}
 						
 						if (holoTower != null){
@@ -204,7 +211,7 @@ public class Level : MonoBehaviour {
 			}
 		}
 		
-		if (happiness <= 0){
+		if (happiness <= 0 && !gameOver){
 			happiness = 0;
 			gameOver = true;
 			NotificationList.AddNotification(new Notification("Game Over!\nYour customers are\nunhappy and have all left", 10));
