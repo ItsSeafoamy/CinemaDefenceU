@@ -228,9 +228,7 @@ public class Level : MonoBehaviour {
 		}
 		
 		if (gameOver && Input.GetKeyDown(KeyCode.Return)){
-			Game.Reset();
-			NotificationList.AddNotification(new Notification("Game Restarted", 2));
-			Application.LoadLevel(0);
+			Application.LoadLevel(DeathLevel);
 		}
 		
 		if (Input.GetKeyDown(KeyCode.Alpha1)){
