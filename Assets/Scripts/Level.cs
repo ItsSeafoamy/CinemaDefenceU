@@ -324,7 +324,7 @@ public class Level : MonoBehaviour {
 						Game.money -= t.buy;
 						
 						selectedTower = t;
-						
+						GetComponent<AudioSource>().Stop();
 						AudioClip playSound = holoTower.placeSounds[Random.Range(0, holoTower.placeSounds.Length - 1)];
 						GetComponent<AudioSource>().PlayOneShot(playSound);
 					} else {
