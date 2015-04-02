@@ -45,6 +45,8 @@ public class Shop : MonoBehaviour {
 	}
 	
 	void OnGUI(){
+		GUI.skin = null; //wurk, plz
+		
 		GUI.DrawTexture(new Rect(0, 0, Screen.width, Screen.height), background);
 		
 		for (int i = 0; i < towers.Length; i++){

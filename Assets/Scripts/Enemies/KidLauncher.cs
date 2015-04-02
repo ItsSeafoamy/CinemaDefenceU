@@ -23,24 +23,33 @@ public class KidLauncher : MonoBehaviour {
 	public Kid toSpawn;
 	
 	public float launchTime, launchDistance;
+	[System.NonSerialized]
+	public Vector2 start;
 	float phase;
 	
 	int targetLane;
 	
 	Vector3 startPos;
+	Vector2 target;
+	
+	Vector3 targetPos;
 	
 	void Start(){
 		startPos = transform.position;
 		
-		int index = Random.Range(0, Level.instance.upSpawnPoints.Length - 1);
-		targetLane = (int) Level.instance.upSpawnPoints[index].x;
+		int index = Random.Range(0, Level.instance.downSpawnPoints.Length - 1);
+		targetLane = (int) Level.instance.downSpawnPoints[index].x;
+		
+		target = new Vector2(targetLane, start.y - launchDistance);
+		targetPos = Level.instance.GridPosToTransformPos(targetPos);
 	}
 	
 	void Update () {
 		phase += Time.deltaTime / launchTime;
 		
 		if (phase >= 1){
-			Instantiate(toSpawn, new Vector3(((targetLane * Level.instance.scaleY) / 100f) + 0.25f, startPos.y - launchDistance), Quaternion.identity);
+			Kid kid = (Kid) Instantiate(toSpawn, targetPos, Quaternion.identity);
+			kid.health /= 2f;
 			Destroy(gameObject);
 		} else {
 			float modifier = (Mathf.Sin(2*(Mathf.PI)*(phase-0.25f)) + 1) / 2.0f;
@@ -50,11 +59,9 @@ public class KidLauncher : MonoBehaviour {
 				modifier = -modifier + 2;
 			}
 			
-			modifier = modifier / 2.0f * launchDistance;
-			float x = ((targetLane * Level.instance.scaleY) / 100f) + 0.25f;
-			float xMod = (x - startPos.x) * phase;
+			modifier = modifier / 2.0f;
 			
-			transform.position = new Vector3(startPos.x + xMod, startPos.y - modifier, startPos.z);
+			transform.position = new Vector3(startPos.x + (targetPos.x - startPos.x)*modifier, startPos.y + (targetPos.y - startPos.y)*modifier);
 		}
 	}
 }

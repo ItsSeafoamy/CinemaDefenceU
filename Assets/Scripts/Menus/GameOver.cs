@@ -23,6 +23,7 @@ public class GameOver : MonoBehaviour
 	public AudioClip bgm;
 	public Texture2D background;
 	public Texture2D resetBtn;
+	public GUISkin menuGUI;
 	
 	void Start () 
 	{
@@ -31,10 +32,14 @@ public class GameOver : MonoBehaviour
 	
 	void OnGUI()
 	{
+		
+		GUI.skin = menuGUI;
+		
 		GUI.DrawTexture (new Rect (0, 0, Screen.width, Screen.height), background);
-		if (GUI.Button (new Rect (Screen.width / 2, Screen.height + 250, 200, 200), (resetBtn))) 
+		if (GUI.Button (new Rect (Screen.width / 2 - resetBtn.width/4, Screen.height - resetBtn.height/2 - 8, resetBtn.width/2, resetBtn.height/2), "")) 
 		{
-			Application.LoadLevel ("StartMenu");
+			Game.Reset();
+			Application.LoadLevel ("MainMenu");
 		}
 	}
 }

@@ -30,7 +30,8 @@ public class CrazyMum : Enemy {
 		
 		if (cooldown <= 0){
 			cooldown = Random.Range(minDelay, maxDelay);
-			Instantiate(launcher, transform.position, Quaternion.identity);
+			KidLauncher launch = (KidLauncher) Instantiate(launcher, transform.position, Quaternion.identity);
+			launch.start = Level.instance.TransformPosToGridPos(transform.position);
 		}
 		
 		cooldown -= Time.deltaTime;

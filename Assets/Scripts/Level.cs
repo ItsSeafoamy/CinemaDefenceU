@@ -81,7 +81,8 @@ public class Level : MonoBehaviour {
 	
 	public bool finalLevel;
 	
-	public bool infiniteMoney;
+	public bool infiniteMoney, infiniteHealth, unlockAllTowers, maxAllTowers;
+	public float timeScale;
 	
 	IEnumerator SpawnObject(int index, float seconds){
 		//make sure they're not all spawning on top of each oter
@@ -125,14 +126,42 @@ public class Level : MonoBehaviour {
 		displayedMoney = Game.money;
 		displayedHappiness = happiness;
 		
+		bool cheatsEnabled = false;
+		
 		if (infiniteMoney){
 			Game.money = System.Int32.MaxValue;
+			cheatsEnabled = true;
+		}
+		if (infiniteHealth){
+			happiness = 10000000;
+			cheatsEnabled = true;
+		}
+		if (unlockAllTowers){
+			foreach (System.Type t in Game.towers){
+				t.GetProperty("currentLevel").SetValue(null, 1, null);
+			}
+			cheatsEnabled = true;
+		}
+		if (maxAllTowers){
+			foreach (System.Type t in Game.towers){
+				t.GetProperty("currentLevel").SetValue(null, 3, null);
+			}
+			cheatsEnabled = true;
 		}
 		
+		if (timeScale != 1 && timeScale != 0){
+			cheatsEnabled = true;
+		}
+		
+		if (cheatsEnabled){
+			NotificationList.AddNotification(new Notification("Warning!\nCheats are enabled\nDid you forget to\ndisable them?", 20));
+		}
+				
 		Music.Change(bgm);
 	}
 	
 	void Update(){
+		Time.timeScale = timeScale == 0 ? 1 : timeScale;
 		if (Random.Range(0, 777776) == 0){
 			NotificationList.AddNotification(new Notification("Easter Egg!\nThere was a\n1 in 777,777 chance\nof this appearing\nLucky You!", 5));
 		}
@@ -243,7 +272,7 @@ public class Level : MonoBehaviour {
 		}
 		
 		if (gameOver && Input.GetKeyDown(KeyCode.Return)){
-			Application.LoadLevel("DeathLevel");
+			Application.LoadLevel("GameOver");
 		}
 		
 		if (Input.GetKeyDown(KeyCode.Alpha1)){
@@ -443,6 +472,17 @@ public class Level : MonoBehaviour {
 		float y = ((pos.x + 0.5f) * sin) + ((pos.y + 0.5f) * cos);
 		
 		return new Vector3((x * scaleX - offset.x) / 100f, (y * scaleY - offset.y) / 100f, 0);
+	}
+	
+	public Vector2 TransformPosToGridPos(Vector3 pos){
+		Vector2 point = new Vector2((pos.x * 100 + offset.x) / scaleX, (pos.y * 100 + offset.y) / scaleY);
+		
+		float sin = Mathf.Sin(Mathf.PI / 4f);
+		float cos = Mathf.Cos(Mathf.PI / 4f);
+		float x = (point.x * cos) + (point.y * -sin); //Rotate the point by 45 degrees counter-clockwise
+		float y = (point.x * sin) + (point.y * cos);
+		
+		return new Vector2(x, y); //Round the values down to snap to grid
 	}
 	
 	void OnGUI(){
