@@ -61,6 +61,7 @@ public class Level : MonoBehaviour {
 	public float popularity; //How 'popular' the cinema is. Determines how often someone makes a purchase
 	float nextPurchase = 3f; //Time until next purchase
 	public int victoryBonus; //How much money we earn for beating the level
+	public int investorBonus;
 	
 	[System.NonSerialized]
 	public float happiness = 100f; //Your life
@@ -79,6 +80,8 @@ public class Level : MonoBehaviour {
 	public AudioClip bgm;
 	
 	public bool finalLevel;
+	
+	public bool infiniteMoney;
 	
 	IEnumerator SpawnObject(int index, float seconds){
 		//make sure they're not all spawning on top of each oter
@@ -122,12 +125,16 @@ public class Level : MonoBehaviour {
 		displayedMoney = Game.money;
 		displayedHappiness = happiness;
 		
+		if (infiniteMoney){
+			Game.money = System.Int32.MaxValue;
+		}
+		
 		Music.Change(bgm);
 	}
 	
 	void Update(){
-		if (Random.Range(0, 7776) == 0){
-			NotificationList.AddNotification(new Notification("Easter Egg!\nThere was a\n1 in 7777 chance\nof this appearing\nLucky You!", 5));
+		if (Random.Range(0, 777776) == 0){
+			NotificationList.AddNotification(new Notification("Easter Egg!\nThere was a\n1 in 777,777 chance\nof this appearing\nLucky You!", 5));
 		}
 		if (!waiting && !waitingForNextLevel && !gameOver){
 			if (nextPurchase <= 0){
@@ -193,7 +200,7 @@ public class Level : MonoBehaviour {
 						NotificationList.AddNotification(new Notification("Wave Cleared\nPress ENTER to continue\nto the next wave", 5));
 					} else {
 						if (Game.money < 0){
-							NotificationList.AddNotification(new Notification("You did not make enough\nmoney and have went bankrupt", 10));
+							NotificationList.AddNotification(new Notification("You did not make enough\nmoney and have went\nbankrupt", 10));
 							gameOver = true;
 						} else if (happiness > 0 && !finalLevel){
 							Game.money += victoryBonus;
@@ -231,6 +238,7 @@ public class Level : MonoBehaviour {
 		
 		if (waitingForNextLevel && Input.GetKeyDown(KeyCode.Return)){
 			Game.nextLevel = nextLevel;
+			Game.investorBonus = investorBonus;
 			Application.LoadLevel("Shop");
 		}
 		
@@ -357,6 +365,7 @@ public class Level : MonoBehaviour {
 						Tower t = (Tower) Instantiate(holoTower.toSpawn[holoTower.toSpawn[0].getLevel()-1], holoTower.transform.position, holoTower.transform.rotation); //Spawn the tower
 						t.transform.localScale = new Vector3(70 / 64f, 70 / 64f, 1);
 						t.GetComponent<SpriteRenderer>().sortingOrder = (int) -t.transform.position.y;
+						t.tile = point;
 						
 						placedTowers.Add(t);
 						Game.money -= t.buy;

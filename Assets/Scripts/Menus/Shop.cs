@@ -223,6 +223,8 @@ public class Shop : MonoBehaviour {
 		}*/
 		
 		if (GUI.Button (new Rect(Screen.width-58, Screen.height/2 + 135, 50, 50), backArrow)) {
+			//Game.money += Game.investorBonus;
+			//NotificationList.AddNotification(new Notification("An investor sees\npotential in your\ncinema and has\ninvested " + Game.investorBonus + "G", 5));
 			Application.LoadLevel(Game.nextLevel);
 		}
 	}

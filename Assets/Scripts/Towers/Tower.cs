@@ -58,6 +58,8 @@ public abstract class Tower : MonoBehaviour {
 	public Sprite northEastSprite, southEastSprite, southWestSprite, northWestSprite;
 	public Sprite icon;
 	
+	public Vector2 tile; 
+	
 	public abstract void Fire();
 	
 	void Update(){

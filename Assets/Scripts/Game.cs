@@ -28,6 +28,8 @@ public class Game {
 	
 	public static string nextLevel;
 	
+	public static int investorBonus;
+	
 	//Array of all tower types. This means we can easily add or remove towers without having to change too much code
 	public static System.Type[] towers = new System.Type[]{
 		typeof(PopcornGun),

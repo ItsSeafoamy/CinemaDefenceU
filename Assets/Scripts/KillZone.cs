@@ -17,35 +17,42 @@
 */
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class KillZone : MonoBehaviour {
+	
+	static List<Enemy> killed = new List<Enemy>();
 	
 	void OnTriggerEnter2D(Collider2D collider){
 		if (collider.tag == "Enemy"){
 			Enemy enemy = collider.GetComponent<Enemy>();
-			Level.instance.happiness -= enemy.health;
 			
-			if (Level.instance.happiness <= 0){
-				//TODO: Lose the game
-				Debug.Log("You lost :(");
-			}
+			if (!killed.Contains(enemy)){
+				killed.Add(enemy);
+				Level.instance.happiness -= enemy.health;
+			
+				if (Level.instance.happiness <= 0){
+					//TODO: Lose the game
+					Debug.Log("You lost :(");
+				}
 						
-			float refunds = enemy.health * 5;
+				float refunds = enemy.health * 5;
 			
-			if (Game.money >= 0 && Game.money - refunds < 0){
-				NotificationList.AddNotification(new Notification("You are now in debt!\nIf you do not get above 0G\nbefore the movie ends,\nYou will be shut down!", 10));
-			}
+				if (Game.money >= 0 && Game.money - refunds < 0){
+					NotificationList.AddNotification(new Notification("You are now in debt!\nIf you do not get above 0G\nbefore the movie ends,\nYou will be shut down!", 10));
+				}
 			    
 			    
-			Game.money -= (int) refunds;
-			NotificationList.AddNotification(new Notification("You lost " + (int) refunds + " from refunds!", 2));
+				Game.money -= (int) refunds;
+				NotificationList.AddNotification(new Notification("You lost " + (int) refunds + " from refunds!", 2));
+					
+				foreach (Tower tower in enemy.watchers){
+					tower.tracked.Remove(enemy);
+					tower.SelectTarget();
+				}
 			
-			foreach (Tower tower in enemy.watchers){
-				tower.tracked.Remove(enemy);
-				tower.SelectTarget();
+				Destroy(enemy.gameObject);
 			}
-			
-			Destroy(enemy.gameObject);
 		}
 	}
 }
