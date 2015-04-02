@@ -476,13 +476,14 @@ public class Level : MonoBehaviour {
 	
 	public Vector2 TransformPosToGridPos(Vector3 pos){
 		Vector2 point = new Vector2((pos.x * 100 + offset.x) / scaleX, (pos.y * 100 + offset.y) / scaleY);
+		Debug.Log(pos.x + ", " + pos.y + ", " + pos.z + " --> " + point.x + ", " + point.y);
 		
 		float sin = Mathf.Sin(Mathf.PI / 4f);
 		float cos = Mathf.Cos(Mathf.PI / 4f);
 		float x = (point.x * cos) + (point.y * -sin); //Rotate the point by 45 degrees counter-clockwise
 		float y = (point.x * sin) + (point.y * cos);
 		
-		return new Vector2(x, y); //Round the values down to snap to grid
+		return new Vector2(Mathf.Floor(x), Mathf.Floor(y)); //Round the values down to snap to grid
 	}
 	
 	void OnGUI(){

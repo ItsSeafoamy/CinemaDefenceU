@@ -35,5 +35,8 @@ public class Coffee : Tower {
 		bullet.direction = dir;
 		bullet.damage = baseDamage;
 		bullet.AddEffect(new DamageOverTime(damagePerSecond));
+		
+		tracked.Remove(target);
+		SelectTarget();
 	}
 }
