@@ -42,16 +42,16 @@ public class MainMenu : MonoBehaviour {
 			Application.LoadLevel ("CarPark");
 		}
 		
-		GUI.skin = tutorialGUI;
+		/*GUI.skin = tutorialGUI;
 		
 		if (GUI.Button (new Rect (Screen.width / 2 - startBtn.width/4, Screen.height - (startBtn.height/2+8)*2, startBtn.width/2, startBtn.height/2), "")) {
 			GUI.skin = null;
 			Application.LoadLevel ("Tutorial");
-		}
+		}*/
 		
 		GUI.skin = quitGUI;
 		
-		if (GUI.Button (new Rect (Screen.width / 2 - startBtn.width/4, Screen.height - (startBtn.height/2+8)*1, startBtn.width/2, startBtn.height/2), "")) {
+		if (GUI.Button (new Rect (Screen.width / 2 - startBtn.width/4, Screen.height - (startBtn.height/2+8)*2, startBtn.width/2, startBtn.height/2), "")) {
 			GUI.skin = null;
 			Application.Quit();
 		}

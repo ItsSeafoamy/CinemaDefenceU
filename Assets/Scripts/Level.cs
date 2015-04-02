@@ -18,7 +18,6 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor;
 
 public class Level : MonoBehaviour {
 
@@ -495,7 +494,7 @@ public class Level : MonoBehaviour {
 		
 		if (selectedTower != null){
 			
-			selectedTower.targetMode = GUI.SelectionGrid(new Rect(Screen.width - 128, 160, 169, 24*3), selectedTower.targetMode, new string[]{"First Spotted", "Strongest", "Weakest"}, 1, EditorStyles.radioButton);
+			selectedTower.targetMode = GUI.SelectionGrid(new Rect(Screen.width - 170, 160, 160, 24*3), selectedTower.targetMode, new string[]{"First Spotted", "Strongest", "Weakest"}, 1);
 			
 			if (GUI.Button(new Rect(Screen.width - 170, 168 + (24*3), 160, 24), "Sell for " + selectedTower.sell + "G")){
 				Game.money += selectedTower.sell;

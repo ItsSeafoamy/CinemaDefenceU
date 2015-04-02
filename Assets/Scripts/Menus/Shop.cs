@@ -113,11 +113,11 @@ public class Shop : MonoBehaviour {
 					GUI.Label(new Rect((i*210) + 90, 64 + 100, 132, 25), "→ " + next.GetComponent<CircleCollider2D>().radius);
 				
 					if (display is IceCreamGun){
-						if (((IceCreamGun) next).multipler > ((IceCreamGun) current).multipler){
+						if (((IceCreamGun) next).multipler < ((IceCreamGun) current).multipler){
 							GUI.color = new Color(0, 255, 0, 255);
 						} else if (((IceCreamGun) next).multipler == ((IceCreamGun) current).multipler){
 							GUI.color = new Color(0.8f, 0.8f, 0.8f, 255);
-						} else if (((IceCreamGun) next).multipler < ((IceCreamGun) current).multipler){
+						} else if (((IceCreamGun) next).multipler > ((IceCreamGun) current).multipler){
 							GUI.color = new Color(255, 0, 0, 255);
 						}
 						GUI.Label(new Rect((i*210) + 90, 64 + 125, 132, 25), "→ " + ((IceCreamGun) next).multipler);
